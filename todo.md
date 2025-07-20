@@ -119,19 +119,26 @@ A social dining platform where people from different companies can meet over foo
   - [x] Code display in app with beautiful UI
   - [x] Automatic code generation when plans are full
 
-- [x] **Arrival Verification**
+- [x] **Arrival Verification (User Side)**
   - [x] User arrival confirmation screen
   - [x] Manual arrival confirmation
   - [x] All-arrived confirmation and celebration
   - [x] Real-time group status tracking
   - [x] Beautiful verification interface
 
-- [ ] **Restaurant Staff Interface** (Future Enhancement)
-  - [ ] Staff mobile view/web dashboard
-  - [ ] Code verification interface
-  - [ ] Mark users as "Arrived"
-  - [ ] Group completion tracking
-  - [ ] Discount activation system
+- [x] **Restaurant Staff Interface**
+  - [x] Staff mobile view/dashboard
+  - [x] Code verification interface
+  - [x] Mark users as "Arrived"
+  - [x] Group completion tracking
+  - [x] Discount activation system
+
+- [ ] **Advanced Arrival Features**
+  - [ ] QR code scanning option
+  - [ ] Manual code entry for staff
+  - [ ] All-arrived confirmation (restaurant side)
+  - [ ] Discount calculation and application
+  - [ ] Bill integration (optional)
 
 ---
 

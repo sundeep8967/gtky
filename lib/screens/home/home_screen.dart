@@ -7,6 +7,7 @@ import '../../models/dining_plan_model.dart';
 import '../../models/restaurant_model.dart';
 import '../restaurants/restaurant_discovery_screen.dart';
 import '../plans/plan_discovery_screen.dart';
+import '../restaurant/restaurant_staff_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -55,6 +56,19 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Profile',
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const RestaurantStaffScreen(),
+            ),
+          );
+        },
+        icon: const Icon(Icons.restaurant),
+        label: const Text('Staff Portal'),
+        backgroundColor: Colors.orange[600],
       ),
     );
   }

@@ -248,4 +248,33 @@ class FirestoreService {
 
     await updateDiningPlan(updatedPlan);
   }
+
+  // Match operations
+  Future<void> createMatch(Map<String, dynamic> matchData) async {
+    await _matches.add(matchData);
+  }
+
+  Future<Map<String, dynamic>?> getMatch(String matchId) async {
+    try {
+      DocumentSnapshot doc = await _matches.doc(matchId).get();
+      if (doc.exists) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        data['id'] = doc.id;
+        return data;
+      }
+      return null;
+    } catch (e) {
+      print('Error getting match: $e');
+      return null;
+    }
+  }
+
+  Future<void> updateMatch(String matchId, Map<String, dynamic> updates) async {
+    await _matches.doc(matchId).update(updates);
+  }
+
+  // Delete dining plan
+  Future<void> deleteDiningPlan(String planId) async {
+    await _diningPlans.doc(planId).delete();
+  }
 }

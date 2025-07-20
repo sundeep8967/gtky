@@ -128,6 +128,39 @@ class RestaurantService {
     }
   }
 
+  // Get all partner restaurants (for staff screen)
+  Future<List<RestaurantModel>> getAllPartnerRestaurants() async {
+    try {
+      QuerySnapshot snapshot = await _firestore
+          .collection('restaurants')
+          .where('isPartner', isEqualTo: true)
+          .where('isActive', isEqualTo: true)
+          .get();
+
+      List<RestaurantModel> restaurants = [];
+      
+      for (var doc in snapshot.docs) {
+        try {
+          Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+          data['id'] = doc.id;
+          restaurants.add(RestaurantModel.fromJson(data));
+        } catch (e) {
+          print('Error parsing restaurant ${doc.id}: $e');
+        }
+      }
+
+      return restaurants;
+    } catch (e) {
+      print('Error getting all partner restaurants: $e');
+      return [];
+    }
+  }
+
+  // Get partner restaurants (alias for compatibility)
+  Future<List<RestaurantModel>> getPartnerRestaurants() async {
+    return getAllPartnerRestaurants();
+  }
+
   // Add sample partner restaurants for testing
   Future<void> addSamplePartnerRestaurants() async {
     try {

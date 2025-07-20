@@ -381,4 +381,83 @@ class DiningPlanService {
       return false;
     }
   }
+
+  // Get active plans for a specific restaurant
+  Future<List<DiningPlanModel>> getActivePlansForRestaurant(String restaurantId) async {
+    try {
+      QuerySnapshot snapshot = await _firestore
+          .collection('dining_plans')
+          .where('restaurantId', isEqualTo: restaurantId)
+          .where('status', whereIn: ['matched', 'confirmed'])
+          .orderBy('plannedTime', descending: false)
+          .get();
+
+      List<DiningPlanModel> plans = [];
+      for (var doc in snapshot.docs) {
+        try {
+          Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+          data['id'] = doc.id;
+          DiningPlanModel plan = DiningPlanModel.fromJson(data);
+          
+          // Only include plans with codes (matched plans)
+          if (plan.memberCodes != null && plan.memberCodes!.isNotEmpty) {
+            plans.add(plan);
+          }
+        } catch (e) {
+          print('Error parsing dining plan ${doc.id}: $e');
+        }
+      }
+
+      return plans;
+    } catch (e) {
+      print('Error getting active plans for restaurant: $e');
+      return [];
+    }
+  }
+
+  // Mark a specific user as arrived (for restaurant staff)
+  Future<bool> markUserArrived(String planId, String userId) async {
+    try {
+      // Get the dining plan
+      DocumentSnapshot planDoc = await _firestore
+          .collection('dining_plans')
+          .doc(planId)
+          .get();
+
+      if (!planDoc.exists) {
+        throw Exception('Dining plan not found');
+      }
+
+      Map<String, dynamic> planData = planDoc.data() as Map<String, dynamic>;
+      planData['id'] = planDoc.id;
+      DiningPlanModel plan = DiningPlanModel.fromJson(planData);
+
+      if (!plan.hasUser(userId)) {
+        throw Exception('User is not part of this plan');
+      }
+
+      // Add user to arrived members list
+      List<String> arrivedMembers = List.from(plan.arrivedMemberIds ?? []);
+      if (!arrivedMembers.contains(userId)) {
+        arrivedMembers.add(userId);
+      }
+
+      // Update plan status if all members have arrived
+      Map<String, dynamic> updateData = {
+        'arrivedMemberIds': arrivedMembers,
+      };
+
+      if (arrivedMembers.length == plan.memberIds.length) {
+        updateData['status'] = 'completed';
+        updateData['completedAt'] = DateTime.now().toIso8601String();
+      }
+
+      await _firestore.collection('dining_plans').doc(planId).update(updateData);
+
+      return true;
+    } catch (e) {
+      print('Error marking user as arrived: $e');
+      return false;
+    }
+  }
 }

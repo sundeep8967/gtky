@@ -73,7 +73,7 @@ class MatchingService {
       );
 
       // Save match to database
-      await _firestoreService.createMatch(match);
+      await _firestoreService.createMatch(match.toJson());
 
       // Update plan status
       final updatedPlan = plan.copyWith(
@@ -165,8 +165,10 @@ class MatchingService {
   // Mark user as arrived at restaurant
   Future<bool> markUserArrived(String matchId, String userId, String verificationCode) async {
     try {
-      final match = await _firestoreService.getMatch(matchId);
-      if (match == null) return false;
+      final matchData = await _firestoreService.getMatch(matchId);
+      if (matchData == null) return false;
+
+      final match = MatchModel.fromJson(matchData);
 
       // Verify the code
       final expectedCode = match.getCodeForUser(userId);
@@ -187,7 +189,7 @@ class MatchingService {
             : MatchStatus.arrived,
       );
 
-      await _firestoreService.updateMatch(updatedMatch);
+      await _firestoreService.updateMatch(matchId, updatedMatch.toJson());
       return true;
     } catch (e) {
       print('Error marking user arrived: $e');
@@ -203,8 +205,11 @@ class MatchingService {
   // Complete a match with bill details
   Future<bool> completeMatch(String matchId, double totalBill) async {
     try {
-      final match = await _firestoreService.getMatch(matchId);
-      if (match == null || !match.allMembersArrived) return false;
+      final matchData = await _firestoreService.getMatch(matchId);
+      if (matchData == null) return false;
+
+      final match = MatchModel.fromJson(matchData);
+      if (!match.allMembersArrived) return false;
 
       // Get restaurant details for discount percentage
       final restaurant = await _firestoreService.getRestaurant(match.restaurantId);
@@ -219,7 +224,7 @@ class MatchingService {
         discountAmount: discountAmount,
       );
 
-      await _firestoreService.updateMatch(updatedMatch);
+      await _firestoreService.updateMatch(matchId, updatedMatch.toJson());
       return true;
     } catch (e) {
       print('Error completing match: $e');
