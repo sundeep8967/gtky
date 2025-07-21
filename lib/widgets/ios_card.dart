@@ -107,7 +107,7 @@ class _IOSCardState extends State<IOSCard>
                     ? [
                         BoxShadow(
                           color: (isDark ? Colors.black : Colors.black)
-                              .withOpacity(0.1 * _shadowAnimation.value),
+                              .withValues(alpha: 0.1 * _shadowAnimation.value),
                           blurRadius: 10 * _shadowAnimation.value,
                           offset: Offset(0, 4 * _shadowAnimation.value),
                         ),
@@ -115,8 +115,8 @@ class _IOSCardState extends State<IOSCard>
                     : null,
                 border: Border.all(
                   color: isDark
-                      ? Colors.white.withOpacity(0.1)
-                      : Colors.black.withOpacity(0.05),
+                      ? Colors.white.withValues(alpha: 0.1)
+                      : Colors.black.withValues(alpha: 0.05),
                   width: 0.5,
                 ),
               ),

@@ -110,7 +110,7 @@ class _IOSButtonState extends State<IOSButton>
       case IOSButtonStyle.filled:
         return theme.primaryColor;
       case IOSButtonStyle.tinted:
-        return theme.primaryColor.withOpacity(0.15);
+        return theme.primaryColor.withValues(alpha: 0.15);
       case IOSButtonStyle.gray:
         return isDark ? const Color(0xFF2C2C2E) : const Color(0xFFF2F2F7);
       case IOSButtonStyle.plain:
@@ -192,7 +192,7 @@ class _IOSButtonState extends State<IOSButton>
                   borderRadius: BorderRadius.circular(_getBorderRadius()),
                   border: widget.style == IOSButtonStyle.gray
                       ? Border.all(
-                          color: Colors.grey.withOpacity(0.3),
+                          color: Colors.grey.withValues(alpha: 0.3),
                           width: 0.5,
                         )
                       : null,

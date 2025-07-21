@@ -171,7 +171,7 @@ class RefreshIndicatorPainter extends CustomPainter {
     canvas.drawCircle(
       center,
       radius,
-      paint..color = color.withOpacity(0.2),
+      paint..color = color.withValues(alpha: 0.2),
     );
 
     // Draw progress arc

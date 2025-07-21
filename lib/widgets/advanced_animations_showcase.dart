@@ -123,13 +123,13 @@ class _AdvancedAnimationsShowcaseState extends State<AdvancedAnimationsShowcase>
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    Colors.blue.withOpacity(0.8),
-                    Colors.purple.withOpacity(0.6),
+                    Colors.blue.withValues(alpha: 0.8),
+                    Colors.purple.withValues(alpha: 0.6),
                   ],
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.blue.withOpacity(0.3),
+                    color: Colors.blue.withValues(alpha: 0.3),
                     blurRadius: 20 * _breathingAnimation.value,
                     spreadRadius: 5 * _breathingAnimation.value,
                   ),
@@ -162,7 +162,7 @@ class _AdvancedAnimationsShowcaseState extends State<AdvancedAnimationsShowcase>
                 color: const Color(0xFF6B73FF),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF6B73FF).withOpacity(0.4),
+                    color: const Color(0xFF6B73FF).withValues(alpha: 0.4),
                     blurRadius: 15,
                     spreadRadius: 2,
                   ),
@@ -241,7 +241,7 @@ class _AdvancedAnimationsShowcaseState extends State<AdvancedAnimationsShowcase>
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.purple.withOpacity(0.3),
+                      color: Colors.purple.withValues(alpha: 0.3),
                       blurRadius: 20 * _breathingAnimation.value,
                       spreadRadius: 5 * _breathingAnimation.value,
                     ),

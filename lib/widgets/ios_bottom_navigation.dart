@@ -94,8 +94,8 @@ class _IOSBottomNavigationState extends State<IOSBottomNavigation>
         border: Border(
           top: BorderSide(
             color: isDark
-                ? Colors.white.withOpacity(0.1)
-                : Colors.black.withOpacity(0.1),
+                ? Colors.white.withValues(alpha: 0.1)
+                : Colors.black.withValues(alpha: 0.1),
             width: 0.5,
           ),
         ),
@@ -143,8 +143,8 @@ class _IOSBottomNavigationButton extends StatelessWidget {
     final theme = Theme.of(context);
     final primaryColor = theme.primaryColor;
     final inactiveColor = theme.brightness == Brightness.dark
-        ? Colors.white.withOpacity(0.6)
-        : Colors.black.withOpacity(0.6);
+        ? Colors.white.withValues(alpha: 0.6)
+        : Colors.black.withValues(alpha: 0.6);
 
     return GestureDetector(
       onTap: onTap,

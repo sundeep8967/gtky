@@ -88,7 +88,7 @@ class GTKYAnimations {
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: glowColor.withOpacity(0.3 * scaleAnimation.value),
+                  color: glowColor.withValues(alpha: 0.3 * scaleAnimation.value),
                   blurRadius: 20 * scaleAnimation.value,
                   spreadRadius: 5 * scaleAnimation.value,
                 ),
@@ -243,8 +243,8 @@ class GTKYMicroInteractions {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        splashColor: rippleColor.withOpacity(0.3),
-        highlightColor: rippleColor.withOpacity(0.1),
+        splashColor: rippleColor.withValues(alpha: 0.3),
+        highlightColor: rippleColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
         child: child,
       ),
@@ -377,7 +377,7 @@ class _HoverGlowWidgetState extends State<_HoverGlowWidget>
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: widget.glowColor.withOpacity(0.3 * _glowAnimation.value),
+                  color: widget.glowColor.withValues(alpha: 0.3 * _glowAnimation.value),
                   blurRadius: widget.glowRadius * _glowAnimation.value,
                   spreadRadius: 5 * _glowAnimation.value,
                 ),

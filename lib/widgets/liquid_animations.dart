@@ -112,7 +112,7 @@ class LiquidPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color.withOpacity(0.3)
+      ..color = color.withValues(alpha: 0.3)
       ..style = PaintingStyle.fill;
 
     final path = Path();
@@ -236,7 +236,7 @@ class RipplePainter extends CustomPainter {
     if (tapPosition == null || progress == 0) return;
 
     final paint = Paint()
-      ..color = color.withOpacity(0.3 * (1 - progress))
+      ..color = color.withValues(alpha: 0.3 * (1 - progress))
       ..style = PaintingStyle.fill;
 
     final maxRadius = math.sqrt(size.width * size.width + size.height * size.height);
@@ -339,7 +339,7 @@ class _MorphingShapeState extends State<MorphingShape>
         return Container(
           decoration: BoxDecoration(
             borderRadius: morphedRadius,
-            color: Theme.of(context).primaryColor.withOpacity(0.1),
+            color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
             border: Border.all(
               color: Theme.of(context).primaryColor,
               width: 2,

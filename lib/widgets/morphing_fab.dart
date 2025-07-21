@@ -133,7 +133,7 @@ class _MorphingFABState extends State<MorphingFAB>
                     child: Container(
                       width: double.infinity,
                       height: double.infinity,
-                      color: Colors.black.withOpacity(_backgroundAnimation.value * 0.3),
+                      color: Colors.black.withValues(alpha: _backgroundAnimation.value * 0.3),
                     ),
                   )
                 : const SizedBox.shrink();

@@ -62,7 +62,7 @@ class _CustomTextFieldState extends State<CustomTextField>
     );
 
     _borderColorAnimation = ColorTween(
-      begin: Colors.grey.withOpacity(0.3),
+      begin: Colors.grey.withValues(alpha: 0.3),
       end: Theme.of(context).primaryColor,
     ).animate(_animationController);
 
@@ -115,13 +115,13 @@ class _CustomTextFieldState extends State<CustomTextField>
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: _borderColorAnimation.value ?? Colors.grey.withOpacity(0.3),
+                  color: _borderColorAnimation.value ?? Colors.grey.withValues(alpha: 0.3),
                   width: _isFocused ? 2 : 1,
                 ),
                 boxShadow: _isFocused
                     ? [
                         BoxShadow(
-                          color: Theme.of(context).primaryColor.withOpacity(0.1),
+                          color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),

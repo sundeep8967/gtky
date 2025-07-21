@@ -92,7 +92,7 @@ class _SuccessAnimationState extends State<SuccessAnimation>
                   height: widget.size,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: widget.color.withOpacity(0.1),
+                    color: widget.color.withValues(alpha: 0.1),
                     border: Border.all(
                       color: widget.color,
                       width: 3,

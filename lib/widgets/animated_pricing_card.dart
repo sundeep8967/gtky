@@ -105,7 +105,7 @@ class _AnimatedPricingCardState extends State<AnimatedPricingCard>
                 Positioned.fill(
                   child: ParticleSystem(
                     particleCount: PerformanceOptimizer.getOptimizedParticleCount(10),
-                    particleColor: GTKYAnimations.primaryColor.withOpacity(0.3),
+                    particleColor: GTKYAnimations.primaryColor.withValues(alpha: 0.3),
                     isActive: true,
                     child: Container(),
                   ),
@@ -141,8 +141,8 @@ class _AnimatedPricingCardState extends State<AnimatedPricingCard>
         boxShadow: [
           BoxShadow(
             color: widget.isPopular 
-                ? GTKYAnimations.primaryColor.withOpacity(0.3)
-                : Colors.black.withOpacity(0.1),
+                ? GTKYAnimations.primaryColor.withValues(alpha: 0.3)
+                : Colors.black.withValues(alpha: 0.1),
             blurRadius: widget.isPopular ? 20 : 10,
             spreadRadius: widget.isPopular ? 5 : 0,
             offset: const Offset(0, 5),
@@ -167,7 +167,7 @@ class _AnimatedPricingCardState extends State<AnimatedPricingCard>
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.orange.withOpacity(0.3),
+                          color: Colors.orange.withValues(alpha: 0.3),
                           blurRadius: 10,
                           spreadRadius: 2,
                         ),

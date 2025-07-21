@@ -156,7 +156,7 @@ class _FloatingActionMenuState extends State<FloatingActionMenu>
                     child: Container(
                       width: double.infinity,
                       height: double.infinity,
-                      color: widget.backgroundColor.withOpacity(_backgroundAnimation.value),
+                      color: widget.backgroundColor.withValues(alpha: _backgroundAnimation.value),
                     ),
                   )
                 : const SizedBox.shrink();
@@ -313,7 +313,7 @@ class _AnimatedFloatingActionButtonState extends State<AnimatedFloatingActionBut
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.black.withValues(alpha: 0.3),
                     blurRadius: _elevationAnimation.value,
                     offset: Offset(0, _elevationAnimation.value / 2),
                   ),

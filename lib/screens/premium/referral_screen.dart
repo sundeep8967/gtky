@@ -272,7 +272,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
             'Share your referral code with friends. When they sign up and complete their first dining plan, you both get credits!',
             style: TextStyle(
               fontSize: 14,
-              color: Colors.white.withOpacity(0.9),
+              color: Colors.white.withValues(alpha: 0.9),
             ),
             textAlign: TextAlign.center,
           ),

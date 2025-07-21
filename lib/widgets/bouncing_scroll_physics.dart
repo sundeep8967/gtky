@@ -297,7 +297,7 @@ class _OverscrollGlowEffectState extends State<OverscrollGlowEffect>
           boxShadow: _glowIntensity > 0
               ? [
                   BoxShadow(
-                    color: widget.glowColor.withOpacity(_glowIntensity * 0.3),
+                    color: widget.glowColor.withValues(alpha: _glowIntensity * 0.3),
                     blurRadius: widget.maxGlowSize * _glowIntensity,
                     spreadRadius: widget.maxGlowSize * _glowIntensity * 0.5,
                   ),

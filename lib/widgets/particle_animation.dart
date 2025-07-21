@@ -150,7 +150,7 @@ class ParticlePainter extends CustomPainter {
     for (final particle in particles) {
       particle.update(0.016); // ~60fps
       
-      paint.color = color.withOpacity(particle.life * 0.8);
+      paint.color = color.withValues(alpha: particle.life * 0.8);
       
       canvas.drawCircle(
         particle.position,
@@ -301,7 +301,7 @@ class FloatingParticlesPainter extends CustomPainter {
       final x = particle.startX + (particle.endX - particle.startX) * progress;
       final y = particle.startY + (particle.endY - particle.startY) * progress;
       
-      paint.color = color.withOpacity(particle.opacity * (1 - progress));
+      paint.color = color.withValues(alpha: particle.opacity * (1 - progress));
       
       canvas.drawCircle(
         Offset(x * size.width, y * size.height),
@@ -453,7 +453,7 @@ class ExplosionPainter extends CustomPainter {
       final position = center + particle.velocity * progress;
       final life = (1 - progress / particle.life).clamp(0.0, 1.0);
       
-      paint.color = color.withOpacity(life);
+      paint.color = color.withValues(alpha: life);
       
       canvas.drawCircle(
         position,

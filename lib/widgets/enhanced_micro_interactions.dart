@@ -185,14 +185,14 @@ class _EnhancedButtonState extends State<EnhancedButton>
                 boxShadow: [
                   // Elevation shadow
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
+                    color: Colors.black.withValues(alpha: 0.2),
                     blurRadius: _elevationAnimation.value * 2,
                     offset: Offset(0, _elevationAnimation.value),
                   ),
                   // Glow effect
                   if (widget.enableGlow && _glowAnimation.value > 0)
                     BoxShadow(
-                      color: _backgroundColor.withOpacity(0.4 * _glowAnimation.value),
+                      color: _backgroundColor.withValues(alpha: 0.4 * _glowAnimation.value),
                       blurRadius: 20 * _glowAnimation.value,
                       spreadRadius: 5 * _glowAnimation.value,
                     ),
@@ -220,7 +220,7 @@ class _EnhancedButtonState extends State<EnhancedButton>
                             child: CustomPaint(
                               painter: RipplePainter(
                                 progress: _rippleAnimation.value,
-                                color: _foregroundColor.withOpacity(0.3),
+                                color: _foregroundColor.withValues(alpha: 0.3),
                               ),
                             ),
                           ),
@@ -403,14 +403,14 @@ class _EnhancedCardState extends State<EnhancedCard>
                   boxShadow: [
                     // Main shadow
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withValues(alpha: 0.1),
                       blurRadius: _elevationAnimation.value,
                       offset: Offset(0, _elevationAnimation.value / 2),
                     ),
                     // Glow effect
                     if (widget.enableGlow && _glowAnimation.value > 0)
                       BoxShadow(
-                        color: GTKYAnimations.primaryColor.withOpacity(0.2 * _glowAnimation.value),
+                        color: GTKYAnimations.primaryColor.withValues(alpha: 0.2 * _glowAnimation.value),
                         blurRadius: 15 * _glowAnimation.value,
                         spreadRadius: 2 * _glowAnimation.value,
                       ),
@@ -451,7 +451,7 @@ class RipplePainter extends CustomPainter {
     final radius = maxRadius * progress;
 
     final paint = Paint()
-      ..color = color.withOpacity(1.0 - progress)
+      ..color = color.withValues(alpha: 1.0 - progress)
       ..style = PaintingStyle.fill;
 
     canvas.drawCircle(center, radius, paint);
@@ -566,14 +566,14 @@ class _EnhancedFABState extends State<EnhancedFAB>
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.black.withValues(alpha: 0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),
                   if (widget.enablePulse)
                     BoxShadow(
                       color: (widget.backgroundColor ?? GTKYAnimations.primaryColor)
-                          .withOpacity(0.3 * _pulseAnimation.value),
+                          .withValues(alpha: 0.3 * _pulseAnimation.value),
                       blurRadius: 20 * _pulseAnimation.value,
                       spreadRadius: 5 * _pulseAnimation.value,
                     ),

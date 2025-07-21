@@ -135,7 +135,7 @@ class _PremiumUpgradeScreenState extends State<PremiumUpgradeScreen>
             if (PerformanceOptimizer.shouldEnableComplexAnimations())
               ParticleSystem(
                 particleCount: PerformanceOptimizer.getOptimizedParticleCount(20),
-                particleColor: GTKYAnimations.primaryColor.withOpacity(0.05),
+                particleColor: GTKYAnimations.primaryColor.withValues(alpha: 0.05),
                 isActive: true,
                 child: Container(),
               ),
@@ -194,7 +194,7 @@ class _PremiumUpgradeScreenState extends State<PremiumUpgradeScreen>
                                 'Unlock the full potential of professional networking',
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: Colors.white.withOpacity(0.9),
+                                  color: Colors.white.withValues(alpha: 0.9),
                                 ),
                                 textAlign: TextAlign.center,
                               ),

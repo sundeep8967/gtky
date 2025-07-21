@@ -44,7 +44,7 @@ class _IOSListTileState extends State<IOSListTile>
 
     _backgroundColorAnimation = ColorTween(
       begin: Colors.transparent,
-      end: Colors.grey.withOpacity(0.1),
+      end: Colors.grey.withValues(alpha: 0.1),
     ).animate(CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeInOut,
@@ -123,7 +123,7 @@ class _IOSListTileState extends State<IOSListTile>
                   const SizedBox(width: 16),
                   Icon(
                     Icons.chevron_right,
-                    color: Colors.grey.withOpacity(0.6),
+                    color: Colors.grey.withValues(alpha: 0.6),
                     size: 20,
                   ),
                 ],

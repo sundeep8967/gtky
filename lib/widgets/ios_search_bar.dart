@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class IOSSearchBar extends StatefulWidget {
   final String? placeholder;
@@ -98,8 +97,8 @@ class _IOSSearchBarState extends State<IOSSearchBar>
             height: 36,
             decoration: BoxDecoration(
               color: isDark
-                  ? Colors.white.withOpacity(0.1)
-                  : Colors.black.withOpacity(0.1),
+                  ? Colors.white.withValues(alpha: 0.1)
+                  : Colors.black.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: TextField(
