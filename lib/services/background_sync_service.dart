@@ -164,13 +164,13 @@ class BackgroundSyncService {
       if (lastNotificationTime == null || 
           now.difference(DateTime.parse(lastNotificationTime)).inDays >= 1) {
         
-        await _notificationService.createNotification(
-          userId: 'current_user', // Replace with actual user ID
-          type: NotificationType.systemUpdate,
-          title: 'Data Synced',
-          body: 'Your GTKY data has been updated with the latest information.',
-          priority: NotificationPriority.low,
-        );
+        // await _notificationService.createNotification(
+        //   userId: 'current_user', // Replace with actual user ID
+        //   type: NotificationType.systemUpdate,
+        //   title: 'Data Synced',
+        //   body: 'Your GTKY data has been updated with the latest information.',
+        //   priority: NotificationPriority.low,
+        // );
         
         await prefs.setString('last_sync_notification', now.toIso8601String());
       }

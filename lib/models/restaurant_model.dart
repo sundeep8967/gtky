@@ -6,6 +6,8 @@ class RestaurantModel {
   final String address;
   final double latitude;
   final double longitude;
+  final double averageRating;
+  final String? imageUrl;
   final String? phoneNumber;
   final String? website;
   final List<String> cuisineTypes;
@@ -34,6 +36,8 @@ class RestaurantModel {
     required this.address,
     required this.latitude,
     required this.longitude,
+    this.averageRating = 0.0,
+    this.imageUrl,
     this.phoneNumber,
     this.website,
     required this.cuisineTypes,
@@ -62,6 +66,8 @@ class RestaurantModel {
       address: json['address'] ?? '',
       latitude: json['latitude']?.toDouble() ?? 0.0,
       longitude: json['longitude']?.toDouble() ?? 0.0,
+      averageRating: json['averageRating']?.toDouble() ?? 0.0,
+      imageUrl: json['imageUrl'],
       phoneNumber: json['phoneNumber'],
       website: json['website'],
       cuisineTypes: List<String>.from(json['cuisineTypes'] ?? []),
@@ -82,6 +88,8 @@ class RestaurantModel {
       'address': address,
       'latitude': latitude,
       'longitude': longitude,
+      'averageRating': averageRating,
+      'imageUrl': imageUrl,
       'phoneNumber': phoneNumber,
       'website': website,
       'cuisineTypes': cuisineTypes,

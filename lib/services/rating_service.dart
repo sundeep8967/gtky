@@ -25,13 +25,12 @@ class RatingService {
       final ratingModel = RatingModel(
         id: '', // Will be set by Firestore
         raterId: currentUser.uid,
-        ratedId: restaurantId,
-        type: RatingType.restaurant,
-        rating: rating,
+        restaurantId: restaurantId,
+        rating: rating.toDouble(),
         comment: comment,
         tags: tags,
         createdAt: DateTime.now(),
-        planId: planId,
+        matchId: planId ?? '',
       );
 
       await _firestore.collection('ratings').add(ratingModel.toJson());
@@ -57,14 +56,12 @@ class RatingService {
       final ratingModel = RatingModel(
         id: '', // Will be set by Firestore
         raterId: currentUser.uid,
-        ratedId: ratedUserId,
-        type: RatingType.user,
-        rating: rating,
+        restaurantId: '', // Empty for user ratings
+        rating: rating.toDouble(),
         comment: comment,
         tags: tags,
         createdAt: DateTime.now(),
-        planId: planId,
-        isAnonymous: true,
+        matchId: ratedUserId,
       );
 
       await _firestore.collection('ratings').add(ratingModel.toJson());
@@ -80,8 +77,7 @@ class RatingService {
     try {
       final snapshot = await _firestore
           .collection('ratings')
-          .where('ratedId', isEqualTo: restaurantId)
-          .where('type', isEqualTo: 'restaurant')
+          .where('restaurantId', isEqualTo: restaurantId)
           .orderBy('createdAt', descending: true)
           .get();
 
@@ -102,7 +98,7 @@ class RatingService {
       final ratings = await getRestaurantRatings(restaurantId);
       if (ratings.isEmpty) return 0.0;
 
-      final sum = ratings.fold<int>(0, (sum, rating) => sum + rating.rating);
+      final sum = ratings.fold<double>(0, (sum, rating) => sum + rating.rating);
       return sum / ratings.length;
     } catch (e) {
       print('Error calculating average rating: $e');
@@ -119,8 +115,7 @@ class RatingService {
       Query query = _firestore
           .collection('ratings')
           .where('raterId', isEqualTo: currentUser.uid)
-          .where('ratedId', isEqualTo: restaurantId)
-          .where('type', isEqualTo: 'restaurant');
+          .where('restaurantId', isEqualTo: restaurantId);
 
       if (planId != null) {
         query = query.where('planId', isEqualTo: planId);
@@ -143,8 +138,7 @@ class RatingService {
       Query query = _firestore
           .collection('ratings')
           .where('raterId', isEqualTo: currentUser.uid)
-          .where('ratedId', isEqualTo: ratedUserId)
-          .where('type', isEqualTo: 'user');
+          .where('matchId', isEqualTo: ratedUserId);
 
       if (planId != null) {
         query = query.where('planId', isEqualTo: planId);
@@ -163,14 +157,14 @@ class RatingService {
     try {
       final snapshot = await _firestore
           .collection('ratings')
-          .where('ratedId', isEqualTo: userId)
-          .where('type', isEqualTo: 'user')
+          .where('matchId', isEqualTo: userId)
+          .where('isAnonymous', isEqualTo: true)
           .get();
 
       if (snapshot.docs.isEmpty) return 0.0;
 
       final ratings = snapshot.docs.map((doc) => RatingModel.fromJson(doc.data())).toList();
-      final sum = ratings.fold<int>(0, (sum, rating) => sum + rating.rating);
+      final sum = ratings.fold<double>(0, (sum, rating) => sum + rating.rating);
       return sum / ratings.length;
     } catch (e) {
       print('Error getting user average rating: $e');

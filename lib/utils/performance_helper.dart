@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -268,6 +269,3 @@ class _KeepAliveWrapperState extends State<_KeepAliveWrapper>
     return widget.child;
   }
 }
-
-// Import for Timer
-import 'dart:async';

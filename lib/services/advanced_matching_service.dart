@@ -1,5 +1,5 @@
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/user_model.dart';
 import '../models/dining_plan_model.dart';
 import '../models/restaurant_model.dart';
 import '../models/rating_model.dart';
@@ -317,17 +317,17 @@ class AdvancedMatchingService {
     final double dLng = _toRadians(lng2 - lng1);
     
     final double a = 
-        (dLat / 2).sin() * (dLat / 2).sin() +
-        lat1.cos() * lat2.cos() *
-        (dLng / 2).sin() * (dLng / 2).sin();
+        sin(dLat / 2) * sin(dLat / 2) +
+        cos(lat1) * cos(lat2) *
+        sin(dLng / 2) * sin(dLng / 2);
     
-    final double c = 2 * (a.sqrt()).asin();
+    final double c = 2 * asin(sqrt(a));
     
     return earthRadius * c;
   }
 
   double _toRadians(double degrees) {
-    return degrees * (3.14159265359 / 180);
+    return degrees * (pi / 180);
   }
 
   double _calculateRestaurantScore(
