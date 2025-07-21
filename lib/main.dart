@@ -3,10 +3,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'screens/auth/auth_wrapper.dart';
 import 'services/auth_service.dart';
+import 'services/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  
+  // Initialize notification service
+  await NotificationService().initialize();
+  
   runApp(const GTKYApp());
 }
 

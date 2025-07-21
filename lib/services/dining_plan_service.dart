@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/dining_plan_model.dart';
 import '../models/user_model.dart';
+import '../models/restaurant_model.dart';
 import 'code_generation_service.dart';
 import 'subscription_service.dart';
+import 'notification_service.dart';
+import 'firestore_service.dart';
 
 class DiningPlanService {
   static final DiningPlanService _instance = DiningPlanService._internal();
@@ -14,6 +17,8 @@ class DiningPlanService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final CodeGenerationService _codeService = CodeGenerationService();
   final SubscriptionService _subscriptionService = SubscriptionService();
+  final NotificationService _notificationService = NotificationService();
+  final FirestoreService _firestoreService = FirestoreService();
 
   // Create a new dining plan
   Future<String?> createDiningPlan({
@@ -203,6 +208,9 @@ class DiningPlanService {
         updateData['memberCodes'] = codes;
         updateData['status'] = 'matched';
         updateData['confirmedAt'] = DateTime.now().toIso8601String();
+        
+        // Send match found notifications to all members
+        await _sendMatchFoundNotifications(plan.restaurantId, updatedMemberIds, plan);
       }
 
       await _firestore.collection('dining_plans').doc(planId).update(updateData);
@@ -479,6 +487,44 @@ class DiningPlanService {
     } catch (e) {
       print('Error completing plan: $e');
       return false;
+    }
+  }
+
+  // Send match found notifications to all members
+  Future<void> _sendMatchFoundNotifications(String restaurantId, List<String> memberIds, DiningPlanModel plan) async {
+    try {
+      // Get restaurant details
+      final restaurantDoc = await _firestore.collection('restaurants').doc(restaurantId).get();
+      if (!restaurantDoc.exists) return;
+      
+      final restaurantData = restaurantDoc.data()!;
+      restaurantData['id'] = restaurantId;
+      final restaurant = RestaurantModel.fromJson(restaurantData);
+
+      // Send notifications to all members
+      for (String memberId in memberIds) {
+        await _notificationService.sendMatchFoundNotification(
+          userId: memberId,
+          plan: plan,
+          restaurant: restaurant,
+        );
+        
+        // Schedule arrival reminder (15 minutes before)
+        await _notificationService.sendArrivalReminder(
+          userId: memberId,
+          plan: plan,
+          restaurant: restaurant,
+        );
+        
+        // Schedule rating reminder (2 hours after planned time)
+        await _notificationService.sendRatingReminder(
+          userId: memberId,
+          plan: plan,
+          restaurant: restaurant,
+        );
+      }
+    } catch (e) {
+      print('Error sending match found notifications: $e');
     }
   }
 }

@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Gtky</string>
+	<string>GTKY - Get To Know You</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -45,5 +45,48 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	
+	<!-- Privacy permissions -->
+	<key>NSCameraUsageDescription</key>
+	<string>GTKY needs camera access to let you take profile photos and share dining experiences.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>GTKY needs photo library access to let you select profile photos and share dining experiences.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>GTKY needs location access to find nearby restaurants and dining partners.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>GTKY needs location access to find nearby restaurants and dining partners.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>GTKY may need microphone access for future video calling features.</string>
+	
+	<!-- App Transport Security -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>firebase.googleapis.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<false/>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.2</string>
+			</dict>
+		</dict>
+	</dict>
+	
+	<!-- Background modes -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>background-fetch</string>
+		<string>remote-notification</string>
+	</array>
+	
+	<!-- Supported device families -->
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>1</integer>
+		<integer>2</integer>
+	</array>
 </dict>
 </plist>

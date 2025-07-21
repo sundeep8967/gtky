@@ -10,6 +10,8 @@ import '../plans/plan_discovery_screen.dart';
 import '../safety/safety_settings_screen.dart';
 import '../premium/premium_upgrade_screen.dart';
 import '../premium/referral_screen.dart';
+import '../notifications/notifications_screen.dart';
+import '../smart_features/smart_recommendations_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -526,6 +528,36 @@ class ProfileScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => const ReferralScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    leading: const Icon(Icons.notifications, color: Colors.blue),
+                    title: const Text('Notifications'),
+                    subtitle: const Text('View your notifications and updates'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NotificationsScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    leading: const Icon(Icons.auto_awesome, color: Colors.purple),
+                    title: const Text('Smart Recommendations'),
+                    subtitle: const Text('AI-powered dining suggestions'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SmartRecommendationsScreen(),
                         ),
                       );
                     },

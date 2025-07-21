@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../services/auth_service.dart';
 import '../../services/firestore_service.dart';
 import '../../models/user_model.dart';
+import '../../widgets/profile_image_picker.dart';
 
 class ProfileSetupScreen extends StatefulWidget {
   const ProfileSetupScreen({super.key});
@@ -20,6 +21,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
   final List<String> _selectedFoodPreferences = [];
   bool _isLoading = false;
   bool _linkedInVerified = false;
+  String? _profileImageUrl;
 
   final List<String> _foodOptions = [
     'Vegetarian',
@@ -138,7 +140,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
         email: user.email!,
         name: _nameController.text,
         age: int.parse(_ageController.text),
-        profilePhotoUrl: user.photoURL,
+        profilePhotoUrl: _profileImageUrl ?? user.photoURL,
         company: _companyController.text,
         foodPreferences: _selectedFoodPreferences,
         createdAt: DateTime.now(),
@@ -202,6 +204,19 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                   color: Colors.grey,
                 ),
               ),
+              const SizedBox(height: 32),
+              
+              // Profile Photo Section
+              ProfileImagePicker(
+                initialImageUrl: _profileImageUrl,
+                onImageChanged: (imageUrl) {
+                  setState(() {
+                    _profileImageUrl = imageUrl;
+                  });
+                },
+                size: 120,
+              ),
+              
               const SizedBox(height: 32),
 
               // Name field
