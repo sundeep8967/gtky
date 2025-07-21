@@ -339,6 +339,37 @@ class NotificationService {
       print('Navigating to: ${data['actionUrl']}');
     }
   }
+
+  // Send notification to specific user
+  Future<void> sendNotificationToUser({
+    required String userId,
+    required String title,
+    required String body,
+    Map<String, String>? data,
+  }) async {
+    try {
+      // Get user's FCM token
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+      
+      if (userDoc.exists) {
+        final userData = userDoc.data() as Map<String, dynamic>;
+        final fcmToken = userData['fcmToken'] as String?;
+        
+        if (fcmToken != null) {
+          await sendNotificationToUser(
+            userId: userId,
+            title: title,
+            body: body,
+          );
+        }
+      }
+    } catch (e) {
+      print('Error sending notification to user: $e');
+    }
+  }
 }
 
 // Navigation service for global context access

@@ -155,9 +155,7 @@ class PerformanceHelper {
       controller: controller,
       physics: physics,
       children: children.map((child) => 
-        AutomaticKeepAliveClientMixin.wantKeepAlive 
-          ? child 
-          : _KeepAliveWrapper(child: child)
+        _KeepAliveWrapper(child: child)
       ).toList(),
     );
   }

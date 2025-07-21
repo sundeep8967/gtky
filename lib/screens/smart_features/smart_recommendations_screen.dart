@@ -7,7 +7,7 @@ import '../../models/restaurant_model.dart';
 import '../../models/dining_plan_model.dart';
 
 class SmartRecommendationsScreen extends StatefulWidget {
-  const SmartRecommendationsScreen({Key? key}) : super(key: key);
+  const SmartRecommendationsScreen({super.key});
 
   @override
   State<SmartRecommendationsScreen> createState() => _SmartRecommendationsScreenState();
@@ -54,7 +54,7 @@ class _SmartRecommendationsScreenState extends State<SmartRecommendationsScreen>
       
       if (currentUser != null) {
         // Get user location
-        final position = await _locationService.getCurrentLocation();
+        final position = await _locationService.getCurrentPosition();
         _userLat = position?.latitude;
         _userLng = position?.longitude;
 
@@ -488,7 +488,7 @@ class _SmartRecommendationsScreenState extends State<SmartRecommendationsScreen>
           const SizedBox(height: 4),
           LinearProgressIndicator(
             value: value,
-            backgroundColor: color.withOpacity(0.2),
+            backgroundColor: color.withValues(alpha: 0.2),
             valueColor: AlwaysStoppedAnimation<Color>(color),
           ),
         ],

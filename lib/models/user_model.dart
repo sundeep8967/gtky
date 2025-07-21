@@ -108,4 +108,22 @@ class UserModel {
       referralCredits: referralCredits ?? this.referralCredits,
     );
   }
+
+  static UserModel fromMap(Map<String, dynamic> map, String id) {
+    return UserModel(
+      id: id,
+      name: map['name'] ?? '',
+      email: map['email'] ?? '',
+      company: map['company'] ?? '',
+      age: map['age'] ?? 0,
+      profilePhotoUrl: map['profilePhotoUrl'] ?? map['photoUrl'] ?? '',
+      foodPreferences: List<String>.from(map['foodPreferences'] ?? []),
+      createdAt: map['createdAt']?.toDate() ?? DateTime.now(),
+      lastActive: map['lastActive']?.toDate() ?? map['lastActiveAt']?.toDate() ?? DateTime.now(),
+      isPremium: map['isPremium'] ?? false,
+      trustScore: (map['trustScore'] ?? 0.0).toDouble(),
+      isVerified: map['isVerified'] ?? false,
+      referralCredits: (map['referralCredits'] ?? 0.0).toDouble(),
+    );
+  }
 }

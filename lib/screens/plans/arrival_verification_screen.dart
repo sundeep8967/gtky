@@ -4,6 +4,7 @@ import '../../models/dining_plan_model.dart';
 import '../../models/restaurant_model.dart';
 import '../../services/dining_plan_service.dart';
 import '../../services/auth_service.dart';
+import '../../services/arrival_status_service.dart';
 
 class ArrivalVerificationScreen extends StatefulWidget {
   final DiningPlanModel plan;
@@ -21,6 +22,7 @@ class ArrivalVerificationScreen extends StatefulWidget {
 
 class _ArrivalVerificationScreenState extends State<ArrivalVerificationScreen> {
   final DiningPlanService _diningPlanService = DiningPlanService();
+  final ArrivalStatusService _arrivalStatusService = ArrivalStatusService();
   bool _isConfirming = false;
 
   @override

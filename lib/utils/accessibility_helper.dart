@@ -101,7 +101,7 @@ class AccessibilityHelper {
       selected: selected,
       child: ListTile(
         onTap: onTap,
-        child: child,
+        title: child,
       ),
     );
   }
@@ -121,7 +121,7 @@ class AccessibilityHelper {
 
   // Get accessible text scale
   static double getAccessibleTextScale(BuildContext context) {
-    return MediaQuery.of(context).textScaleFactor.clamp(1.0, 2.0);
+    return MediaQuery.of(context).textScaler.scale(1.0).clamp(1.0, 2.0);
   }
 
   // Create focus traversal order

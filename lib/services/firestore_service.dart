@@ -277,4 +277,81 @@ class FirestoreService {
   Future<void> deleteDiningPlan(String planId) async {
     await _diningPlans.doc(planId).delete();
   }
+
+  // Generic document operations
+  Future<DocumentSnapshot> getUserDocument(String userId) async {
+    return await _users.doc(userId).get();
+  }
+
+  Future<void> updateUserDocument(String userId, Map<String, dynamic> data) async {
+    await _users.doc(userId).update(data);
+  }
+
+  Future<DocumentSnapshot> getDocument(String collection, String docId) async {
+    return await _db.collection(collection).doc(docId).get();
+  }
+
+  Future<void> updateDocument(String collection, String docId, Map<String, dynamic> data) async {
+    await _db.collection(collection).doc(docId).update(data);
+  }
+
+  Future<DocumentReference> addDocument(String collection, Map<String, dynamic> data) async {
+    return await _db.collection(collection).add(data);
+  }
+
+  Future<QuerySnapshot> getCollection(String collection, {
+    List<Map<String, dynamic>>? where,
+    List<Map<String, dynamic>>? orderBy,
+    int? limit,
+  }) async {
+    Query query = _db.collection(collection);
+    
+    if (where != null) {
+      for (var condition in where) {
+        query = query.where(condition['field'], isEqualTo: condition['value']);
+      }
+    }
+    
+    if (orderBy != null) {
+      for (var order in orderBy) {
+        query = query.orderBy(order['field'], descending: order['descending'] ?? false);
+      }
+    }
+    
+    if (limit != null) {
+      query = query.limit(limit);
+    }
+    
+    return await query.get();
+  }
+
+  Stream<QuerySnapshot> getCollectionStream(String collection, {
+    List<Map<String, dynamic>>? where,
+    List<Map<String, dynamic>>? orderBy,
+    int? limit,
+  }) {
+    Query query = _db.collection(collection);
+    
+    if (where != null) {
+      for (var condition in where) {
+        query = query.where(condition['field'], isEqualTo: condition['value']);
+      }
+    }
+    
+    if (orderBy != null) {
+      for (var order in orderBy) {
+        query = query.orderBy(order['field'], descending: order['descending'] ?? false);
+      }
+    }
+    
+    if (limit != null) {
+      query = query.limit(limit);
+    }
+    
+    return query.snapshots();
+  }
+
+  DocumentReference getDocumentReference(String collection, String docId) {
+    return _db.collection(collection).doc(docId);
+  }
 }

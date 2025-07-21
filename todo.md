@@ -26,7 +26,7 @@ A social dining platform where people from different companies can meet over foo
 - [x] **User Profile Creation**
   - [x] Create user model (name, age, photo, food preferences, company)
   - [x] Build profile setup screens
-  - [ ] Image picker for profile photo (basic implementation done)
+  - [x] Image picker for profile photo (fully implemented with compression)
   - [x] Food preference selection UI
   - [x] Profile validation and storage
 
@@ -41,7 +41,7 @@ A social dining platform where people from different companies can meet over foo
   - [x] Setup Firebase project (instructions provided)
   - [x] Configure Firebase Auth
   - [x] Setup Firestore database
-  - [ ] Configure Firebase Cloud Functions (will be added in later milestones)
+  - [x] Configure Firebase Cloud Functions (automated matching, notifications, cleanup)
   - [x] Setup Firebase Cloud Messaging
 
 - [x] **Database Schema Design**
@@ -49,7 +49,7 @@ A social dining platform where people from different companies can meet over foo
   - [x] Restaurants collection structure
   - [x] Dining plans collection structure
   - [x] Matches collection structure
-  - [ ] Ratings collection structure (will be added in Milestone 6)
+  - [x] Ratings collection structure (implemented in Milestone 5)
 
 ---
 
@@ -125,8 +125,8 @@ A social dining platform where people from different companies can meet over foo
 - [x] **Advanced User Features**
   - [x] QR code generation for users (restaurant staff can scan)
   - [x] Show discount amount earned after completion
-  - [ ] Arrival reminder notifications
-  - [ ] Share arrival status with group
+  - [x] Arrival reminder notifications (implemented in notification service)
+  - [x] Share arrival status with group
 
 ---
 
@@ -142,9 +142,9 @@ A social dining platform where people from different companies can meet over foo
 
 - [x] **Experience Summary**
   - [x] Show total discount earned
-  - [ ] Display group photos and memories
-  - [ ] Share experience on social media
-  - [ ] Save favorite restaurants and users
+  - [x] Display group photos and memories
+  - [x] Share experience on social media
+  - [x] Save favorite restaurants and users
 
 - [x] **Feedback Collection**
   - [x] App improvement suggestions (in-app feedback)
@@ -163,17 +163,17 @@ A social dining platform where people from different companies can meet over foo
   - [x] Safety guidelines and tips
   - [x] Emergency contact features
 
-- [ ] **Trust Score System**
-  - [ ] User reliability scoring
-  - [ ] Verified user badges
-  - [ ] Trust-based matching priority
-  - [ ] Reputation display
+- [x] **Trust Score System**
+  - [x] User reliability scoring (implemented in security service)
+  - [x] Verified user badges (company verification system)
+  - [x] Trust-based matching priority (implemented in advanced matching)
+  - [x] Reputation display (trust score in user model)
 
-- [ ] **Privacy Controls**
-  - [ ] Profile visibility settings
-  - [ ] Company information sharing controls
-  - [ ] Location sharing preferences
-  - [ ] Communication preferences
+- [x] **Privacy Controls**
+  - [x] Profile visibility settings
+  - [x] Company information sharing controls
+  - [x] Location sharing preferences
+  - [x] Communication preferences
 
 ---
 

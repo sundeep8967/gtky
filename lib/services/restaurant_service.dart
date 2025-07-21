@@ -46,7 +46,7 @@ class RestaurantService {
           RestaurantModel restaurant = RestaurantModel.fromJson(data);
           
           // Calculate distance and filter by radius
-          double distance = restaurant.distanceFrom(latitude!, longitude!);
+          double distance = restaurant.distanceFrom(latitude, longitude);
           if (distance <= radiusKm) {
             restaurants.add(restaurant);
           }
@@ -56,9 +56,11 @@ class RestaurantService {
       }
 
       // Sort by distance
-      restaurants.sort((a, b) => 
-          a.distanceFrom(latitude!, longitude!).compareTo(
-              b.distanceFrom(latitude!, longitude!)));
+      if (latitude != null && longitude != null) {
+        restaurants.sort((a, b) => 
+            a.distanceFrom(latitude!, longitude!).compareTo(
+                b.distanceFrom(latitude!, longitude!)));
+      }
 
       return restaurants;
     } catch (e) {

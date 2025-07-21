@@ -120,4 +120,26 @@ class RestaurantModel {
   double _degreesToRadians(double degrees) {
     return degrees * (pi / 180);
   }
+
+  static RestaurantModel fromMap(Map<String, dynamic> map, String id) {
+    return RestaurantModel(
+      id: id,
+      name: map['name'] ?? '',
+      address: map['address'] ?? '',
+      latitude: (map['latitude'] ?? 0.0).toDouble(),
+      longitude: (map['longitude'] ?? 0.0).toDouble(),
+      cuisineTypes: List<String>.from(map['cuisineTypes'] ?? []),
+      averageRating: (map['averageRating'] ?? 0.0).toDouble(),
+      priceRange: map['priceRange'] ?? '',
+      isPartner: map['isPartner'] ?? false,
+      discountPercentage: (map['discountPercentage'] ?? 0.0).toDouble(),
+      imageUrl: map['imageUrl'] ?? '',
+      phoneNumber: map['phoneNumber'],
+      website: map['website'],
+      openingHours: map['openingHours'] != null 
+          ? Map<String, String>.from(map['openingHours'])
+          : null,
+      photoUrl: map['photoUrl'],
+    );
+  }
 }
