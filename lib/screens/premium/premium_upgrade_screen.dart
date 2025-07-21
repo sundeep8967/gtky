@@ -3,6 +3,14 @@ import 'package:provider/provider.dart';
 import '../../services/subscription_service.dart';
 import '../../services/auth_service.dart';
 import '../../models/subscription_model.dart';
+import '../../widgets/brand_animation_presets.dart';
+import '../../widgets/sound_effects.dart';
+import '../../widgets/particle_animation.dart';
+import '../../widgets/staggered_animation_list.dart';
+import '../../widgets/performance_optimizer.dart';
+import '../../widgets/animated_premium_features.dart';
+import '../../widgets/animated_pricing_card.dart';
+import '../../widgets/enhanced_micro_interactions.dart';
 
 class PremiumUpgradeScreen extends StatefulWidget {
   const PremiumUpgradeScreen({Key? key}) : super(key: key);
@@ -11,15 +19,37 @@ class PremiumUpgradeScreen extends StatefulWidget {
   State<PremiumUpgradeScreen> createState() => _PremiumUpgradeScreenState();
 }
 
-class _PremiumUpgradeScreenState extends State<PremiumUpgradeScreen> {
+class _PremiumUpgradeScreenState extends State<PremiumUpgradeScreen> 
+    with TickerProviderStateMixin {
   final SubscriptionService _subscriptionService = SubscriptionService();
   bool _isLoading = false;
   SubscriptionModel? _currentSubscription;
+  late AnimationController _mainController;
+  late AnimationController _particleController;
 
   @override
   void initState() {
     super.initState();
+    _mainController = PerformanceOptimizer.createOptimizedController(
+      duration: GTKYAnimations.extraSlow,
+      vsync: this,
+    );
+    _particleController = PerformanceOptimizer.createOptimizedController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    );
     _loadCurrentSubscription();
+    _mainController.forward();
+    if (PerformanceOptimizer.shouldEnableComplexAnimations()) {
+      _particleController.repeat();
+    }
+  }
+
+  @override
+  void dispose() {
+    _mainController.dispose();
+    _particleController.dispose();
+    super.dispose();
   }
 
   Future<void> _loadCurrentSubscription() async {
@@ -103,52 +133,82 @@ class _PremiumUpgradeScreenState extends State<PremiumUpgradeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('GTKY Premium'),
-        backgroundColor: Colors.amber[50],
-        foregroundColor: Colors.amber[800],
+        backgroundColor: GTKYAnimations.primaryColor,
+        foregroundColor: Colors.white,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: PerformanceOptimizer.optimizeWidget(
+        Stack(
           children: [
-            // Premium header
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.amber[400]!, Colors.amber[600]!],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(16),
+            // Background particle effect
+            if (PerformanceOptimizer.shouldEnableComplexAnimations())
+              ParticleSystem(
+                particleCount: PerformanceOptimizer.getOptimizedParticleCount(20),
+                particleColor: GTKYAnimations.primaryColor.withOpacity(0.05),
+                isActive: true,
+                child: Container(),
               ),
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.star,
-                    size: 64,
-                    color: Colors.white,
+            
+            // Main content
+            SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: GTKYAnimations.slideIn(
+                controller: _mainController,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+            // Premium header with animation
+            GTKYAnimations.scaleWithGlow(
+              controller: _mainController,
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [GTKYAnimations.primaryColor, GTKYAnimations.secondaryColor],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'GTKY Premium',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  children: [
+                    GTKYAnimations.floating(
+                      controller: _particleController,
+                      amplitude: 5.0,
+                      child: const Icon(
+                        Icons.star,
+                        size: 64,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Unlock the full potential of social dining',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white.withOpacity(0.9),
+                    const SizedBox(height: 16),
+                    GTKYAnimations.slideIn(
+                      controller: _mainController,
+                      delay: GTKYAnimations.fast,
+                      child: const Text(
+                        'GTKY Premium',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                    const SizedBox(height: 8),
+                    GTKYAnimations.slideIn(
+                      controller: _mainController,
+                      delay: GTKYAnimations.medium,
+                      child: Text(
+                        'Unlock the full potential of professional networking',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white.withOpacity(0.9),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
 
@@ -234,103 +294,67 @@ class _PremiumUpgradeScreenState extends State<PremiumUpgradeScreen> {
               const SizedBox(height: 24),
             ],
 
-            // Features
-            Text(
-              'Premium Features',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+            // Features with animation
+            GTKYAnimations.slideIn(
+              controller: _mainController,
+              delay: GTKYAnimations.slow,
+              child: const Text(
+                'Premium Features',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: GTKYAnimations.primaryColor,
+                ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
 
-            ...SubscriptionService().getPremiumFeatures().map((feature) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.check_circle,
-                      color: Colors.green[600],
-                      size: 20,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        feature,
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
+            AnimatedPremiumFeatures(
+              features: GTKYPremiumFeatures.features,
+              isPremium: isPremium,
+            ),
 
             const SizedBox(height: 32),
 
-            // Upgrade button
+            // Pricing with animation
             if (!isPremium) ...[
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _isLoading ? null : _upgradeToPremium,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.amber[600],
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: _isLoading
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                          ),
-                        )
-                      : const Text(
-                          'Upgrade to Premium',
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
+              GTKYAnimations.slideIn(
+                controller: _mainController,
+                delay: const Duration(milliseconds: 1200),
+                child: PricingPlansWidget(
+                  onUpgrade: _upgradeToPremium,
+                  isLoading: _isLoading,
                 ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'By upgrading, you agree to our Terms of Service and Privacy Policy. Your subscription will automatically renew monthly.',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[600],
-                ),
-                textAlign: TextAlign.center,
               ),
             ],
 
             // Manage subscription button for premium users
             if (isPremium) ...[
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/subscription-management');
-                  },
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+              const SizedBox(height: 24),
+              GTKYAnimations.slideIn(
+                controller: _mainController,
+                delay: const Duration(milliseconds: 800),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: EnhancedButton(
+                    style: ButtonStyle.outline,
+                    onPressed: () {
+                      SoundEffects.playTap();
+                      Navigator.pushNamed(context, '/subscription-management');
+                    },
+                    child: const Text(
+                      'Manage Subscription',
+                      style: TextStyle(fontSize: 16),
                     ),
-                  ),
-                  child: const Text(
-                    'Manage Subscription',
-                    style: TextStyle(fontSize: 16),
                   ),
                 ),
               ),
             ],
-          ],
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

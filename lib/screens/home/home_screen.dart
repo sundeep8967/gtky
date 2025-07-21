@@ -9,6 +9,11 @@ import '../../widgets/ios_bottom_navigation.dart';
 import '../../widgets/ios_navigation_bar.dart';
 import '../../widgets/ios_card.dart';
 import '../../widgets/ios_button.dart';
+import '../../widgets/brand_animation_presets.dart';
+import '../../widgets/sound_effects.dart';
+import '../../widgets/staggered_animation_list.dart';
+import '../../widgets/floating_action_menu.dart';
+import '../../widgets/particle_animation.dart';
 import '../restaurants/restaurant_discovery_screen.dart';
 import '../plans/plan_discovery_screen.dart';
 import '../safety/safety_settings_screen.dart';
@@ -28,6 +33,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   int _currentIndex = 0;
   late PageController _pageController;
   late AnimationController _fadeController;
+  late AnimationController _floatingController;
+  late AnimationController _particleController;
   late Animation<double> _fadeAnimation;
 
   final List<Widget> _screens = [
@@ -42,23 +49,35 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     super.initState();
     _pageController = PageController();
     _fadeController = AnimationController(
-      duration: const Duration(milliseconds: 300),
+      duration: GTKYAnimations.medium,
+      vsync: this,
+    );
+    _floatingController = AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    );
+    _particleController = AnimationController(
+      duration: const Duration(seconds: 2),
       vsync: this,
     );
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _fadeController, curve: Curves.easeInOut),
+      CurvedAnimation(parent: _fadeController, curve: GTKYAnimations.brandEaseOut),
     );
     _fadeController.forward();
+    _floatingController.repeat(reverse: true);
   }
 
   @override
   void dispose() {
     _pageController.dispose();
     _fadeController.dispose();
+    _floatingController.dispose();
+    _particleController.dispose();
     super.dispose();
   }
 
   void _onTabTapped(int index) {
+    SoundEffects.playSelection();
     setState(() {
       _currentIndex = index;
     });
