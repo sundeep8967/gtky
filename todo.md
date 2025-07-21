@@ -1,11 +1,13 @@
-# GTKY (Get To Know You) - Development Todo
+# GTKY (Get To Know You) - End-User App Development Todo
 
 ## 🎯 App Overview
-A social dining platform where people from different companies can meet over food with verified matching and restaurant discounts.
+A social dining platform where people from different companies can meet over food with verified matching and restaurant discounts. **This is the END-USER/CUSTOMER app only.**
+
+> **Note**: Restaurant management features are handled in a separate restaurant app.
 
 ## 🚀 DEVELOPMENT MILESTONES
 
-### ✅ Milestone 1: Foundation Setup
+### ✅ Milestone 1: Foundation Setup - COMPLETED!
 **Goal**: Secure and verified onboarding
 
 #### Authentication & Profile Setup
@@ -51,14 +53,8 @@ A social dining platform where people from different companies can meet over foo
 
 ---
 
-### ✅ Milestone 2: Restaurant Partnership + Plan Creation - COMPLETED!
-**Goal**: Partner restaurants onboarded and dining plans start populating
-
-- [x] **Restaurant Partnership System**
-  - [x] Create partner restaurant service and data models
-  - [x] Add sample partner restaurants for testing
-  - [x] Implement restaurant verification system
-  - [x] Create partner restaurant profiles with benefits
+### ✅ Milestone 2: Restaurant Discovery + Plan Creation - COMPLETED!
+**Goal**: Users can discover partner restaurants and create dining plans
 
 - [x] **Restaurant Discovery (Partner-Only)**
   - [x] Display only partner restaurants
@@ -110,8 +106,8 @@ A social dining platform where people from different companies can meet over foo
 
 ---
 
-### ✅ Milestone 4: Unique Code + Arrival Verification - COMPLETED!
-**Goal**: Real-world validation of group + discount mechanism
+### ✅ Milestone 4: User Arrival Verification - COMPLETED!
+**Goal**: Real-world validation of group formation
 
 - [x] **Code Generation System**
   - [x] Generate unique 2-digit codes for each user
@@ -126,78 +122,63 @@ A social dining platform where people from different companies can meet over foo
   - [x] Real-time group status tracking
   - [x] Beautiful verification interface
 
-- [x] **Restaurant Staff Interface**
-  - [x] Staff mobile view/dashboard
-  - [x] Code verification interface
-  - [x] Mark users as "Arrived"
-  - [x] Group completion tracking
-  - [x] Discount activation system
-
-- [ ] **Advanced Arrival Features**
-  - [ ] QR code scanning option
-  - [ ] Manual code entry for staff
-  - [ ] All-arrived confirmation (restaurant side)
-  - [ ] Discount calculation and application
-  - [ ] Bill integration (optional)
+- [x] **Advanced User Features**
+  - [x] QR code generation for users (restaurant staff can scan)
+  - [x] Show discount amount earned after completion
+  - [ ] Arrival reminder notifications
+  - [ ] Share arrival status with group
 
 ---
 
-### 🔹 Milestone 5: Restaurant Panel / Admin Portal
-**Goal**: Restaurant becomes a partner in the loop
+### ✅ Milestone 5: Post-Meal Experience & Ratings - COMPLETED!
+**Goal**: Complete the dining experience loop
 
-- [ ] **Restaurant Onboarding**
-  - [ ] Restaurant signup/login system
-  - [ ] Restaurant profile creation
-  - [ ] Verification process
-  - [ ] Partnership agreement flow
+- [x] **Post-Meal Rating System**
+  - [x] User-to-user rating (optional)
+  - [x] Restaurant rating (mandatory)
+  - [x] Experience feedback form
+  - [x] Photo sharing option (UI ready)
+  - [x] Rating submission and storage
 
-- [ ] **Restaurant Dashboard**
-  - [ ] View upcoming GTKY plans
-  - [ ] Group arrival management
-  - [ ] Code verification interface
-  - [ ] Bill input system
-  - [ ] Analytics dashboard
+- [x] **Experience Summary**
+  - [x] Show total discount earned
+  - [ ] Display group photos and memories
+  - [ ] Share experience on social media
+  - [ ] Save favorite restaurants and users
 
-- [ ] **Analytics & Reporting**
-  - [ ] Daily GTKY visits tracking
-  - [ ] Discount analytics
-  - [ ] Revenue impact reports
-  - [ ] Customer feedback aggregation
+- [ ] **Feedback Collection**
+  - [ ] App improvement suggestions
+  - [ ] Restaurant feedback for partnerships
+  - [ ] User experience surveys
 
 ---
 
-### 🔹 Milestone 6: Ratings & Feedback
-**Goal**: Trust & quality layer
+### ✅ Milestone 6: Safety & Trust System - COMPLETED!
+**Goal**: Safe and trustworthy user interactions
 
-- [ ] **Post-Meal Rating System**
-  - [ ] User-to-user rating (optional)
-  - [ ] Restaurant rating (mandatory)
-  - [ ] Experience feedback
-  - [ ] Photo sharing option
-
-- [ ] **Safety & Moderation**
-  - [ ] Report user functionality
-  - [ ] Block user feature
-  - [ ] Content moderation system
-  - [ ] Safety guidelines and tips
+- [x] **Safety & Moderation**
+  - [x] Report user functionality
+  - [x] Block user feature
+  - [x] Content moderation system
+  - [x] Safety guidelines and tips
+  - [x] Emergency contact features
 
 - [ ] **Trust Score System**
   - [ ] User reliability scoring
-  - [ ] Restaurant quality scoring
   - [ ] Verified user badges
   - [ ] Trust-based matching priority
+  - [ ] Reputation display
+
+- [ ] **Privacy Controls**
+  - [ ] Profile visibility settings
+  - [ ] Company information sharing controls
+  - [ ] Location sharing preferences
+  - [ ] Communication preferences
 
 ---
 
-### 🔹 Milestone 7: Monetization Systems
-**Goal**: Begin generating revenue 💸
-
-- [ ] **Restaurant Subscription**
-  - [ ] ₹1999/₹3999 monthly plans
-  - [ ] Featured listing system
-  - [ ] Premium restaurant badges
-  - [ ] Analytics access tiers
-  - [ ] Payment integration
+### 🔹 Milestone 7: Premium Features & Monetization
+**Goal**: Sustainable revenue model
 
 - [ ] **User Premium Features**
   - [ ] ₹199/month premium plan
@@ -205,170 +186,103 @@ A social dining platform where people from different companies can meet over foo
   - [ ] Advanced filters
   - [ ] Unlimited plans per day
   - [ ] Premium user badges
+  - [ ] Early access to new restaurants
 
 - [ ] **Referral System**
   - [ ] Referral code generation
-  - [ ] Credit system
+  - [ ] Credit system for successful referrals
   - [ ] Reward tracking
   - [ ] Referral analytics
 
+- [ ] **Subscription Management**
+  - [ ] Payment integration
+  - [ ] Subscription status tracking
+  - [ ] Billing history
+  - [ ] Cancellation flow
+
 ---
 
-### 🔹 Milestone 8: Notifications + Advanced Matching
-**Goal**: Fully automated GTKY engine running
+### 🔹 Milestone 8: Notifications & Advanced Features
+**Goal**: Fully automated and engaging user experience
 
 - [ ] **Real-time Notifications**
   - [ ] Firebase Cloud Messaging setup
   - [ ] Match found notifications
-  - [ ] Plan updates
+  - [ ] Plan updates and reminders
   - [ ] Arrival reminders
   - [ ] Rating reminders
+  - [ ] New restaurant notifications
 
 - [ ] **Advanced Matching Engine**
-  - [ ] Machine learning for better matches
   - [ ] User preference learning
   - [ ] Success rate optimization
   - [ ] Geographic optimization
   - [ ] Time preference analysis
+  - [ ] Cuisine preference matching
 
 - [ ] **Smart Features**
-  - [ ] Auto-suggest restaurants
+  - [ ] Auto-suggest restaurants based on history
   - [ ] Optimal timing recommendations
   - [ ] Weather-based suggestions
-  - [ ] Cuisine preference matching
+  - [ ] Personalized restaurant recommendations
 
 ---
 
 ## 🛠️ Technical Implementation Plan
 
-### Phase 1: Setup & Dependencies
-```yaml
-# Key packages to add to pubspec.yaml
-dependencies:
-  # Authentication
-  google_sign_in: ^6.1.5
-  firebase_auth: ^4.15.3
-  
-  # LinkedIn (custom implementation needed)
-  oauth2: ^2.0.2
-  
-  # Firebase
-  firebase_core: ^2.24.2
-  cloud_firestore: ^4.13.6
-  firebase_messaging: ^14.7.10
-  firebase_storage: ^11.5.6
-  
-  # Location & Maps
-  geolocator: ^10.1.0
-  google_maps_flutter: ^2.5.0
-  geocoding: ^2.1.1
-  
-  # UI & State Management
-  provider: ^6.1.1
-  cached_network_image: ^3.3.0
-  image_picker: ^1.0.4
-  
-  # Utilities
-  http: ^1.1.0
-  shared_preferences: ^2.2.2
-  permission_handler: ^11.1.0
-```
+### Phase 1: Core Features Enhancement
+- [ ] **Profile Photo Upload**
+  - [ ] Image picker integration
+  - [ ] Photo compression and upload
+  - [ ] Profile photo display
 
-### Phase 2: Project Structure
-```
-lib/
-├── main.dart
-├── models/
-│   ├── user_model.dart
-│   ├── restaurant_model.dart
-│   ├── dining_plan_model.dart
-│   └── match_model.dart
-├── services/
-│   ├── auth_service.dart
-│   ├── firestore_service.dart
-│   ├── location_service.dart
-│   └── notification_service.dart
-├── screens/
-│   ├── auth/
-│   ├── profile/
-│   ├── restaurants/
-│   ├── plans/
-│   └── matches/
-├── widgets/
-│   └── common/
-└── utils/
-    ├── constants.dart
-    └── helpers.dart
-```
+- [ ] **Enhanced Security**
+  - [ ] Phone number verification (optional)
+  - [ ] Email verification
+  - [ ] Company domain verification
+  - [ ] User behavior monitoring
 
-### Phase 3: Development Priorities
-1. **Week 1-2**: Authentication & Profile Setup
-2. **Week 3-4**: Restaurant Discovery & Plan Creation
-3. **Week 5-6**: Matching Engine & Group Formation
-4. **Week 7-8**: Code System & Verification
-5. **Week 9-10**: Restaurant Dashboard
-6. **Week 11-12**: Ratings & Safety Features
-7. **Week 13-14**: Monetization Features
-8. **Week 15-16**: Advanced Features & Polish
+### Phase 2: User Experience Polish
+- [ ] **UI/UX Improvements**
+  - [ ] Dark mode support
+  - [ ] Accessibility features
+  - [ ] Animation improvements
+  - [ ] Loading state optimizations
 
----
+- [ ] **Performance Optimization**
+  - [ ] Image caching
+  - [ ] Offline support
+  - [ ] Background sync
+  - [ ] App size optimization
 
-## 🔐 Security & Verification Strategy
+### Phase 3: Platform Compliance
+- [ ] **iOS App Store**
+  - [ ] App Store guidelines compliance
+  - [ ] iOS location permissions
+  - [ ] Apple Sign-In integration
+  - [ ] Push notification certificates
 
-### User Verification
-- [x] Google OAuth for primary authentication
-- [x] LinkedIn integration for company verification
-- [ ] Phone number verification (optional)
-- [ ] Email verification
+- [ ] **Google Play Store**
+  - [ ] Google Play Store requirements
+  - [ ] Android location permissions
+  - [ ] Firebase configuration
+  - [ ] APK optimization
 
-### Anti-Fraud Measures
-- [ ] Company domain verification
-- [ ] Arrival confirmation system
-- [ ] Code-based discount validation
-- [ ] User behavior monitoring
-- [ ] Report/block functionality
+### Phase 4: Quality Assurance
+- [ ] **Unit Tests**
+  - [ ] Model validation tests
+  - [ ] Service layer tests
+  - [ ] Utility function tests
 
-### Data Privacy
-- [ ] GDPR compliance
-- [ ] Data encryption
-- [ ] Secure API endpoints
-- [ ] Privacy policy implementation
-- [ ] User consent management
+- [ ] **Integration Tests**
+  - [ ] Authentication flow tests
+  - [ ] Matching algorithm tests
+  - [ ] End-to-end user journey tests
 
----
-
-## 📱 Platform Considerations
-
-### iOS Specific
-- [ ] App Store guidelines compliance
-- [ ] iOS location permissions
-- [ ] Apple Sign-In integration
-- [ ] Push notification certificates
-
-### Android Specific
-- [ ] Google Play Store requirements
-- [ ] Android location permissions
-- [ ] Firebase configuration
-- [ ] APK optimization
-
----
-
-## 🧪 Testing Strategy
-
-### Unit Tests
-- [ ] Model validation tests
-- [ ] Service layer tests
-- [ ] Utility function tests
-
-### Integration Tests
-- [ ] Authentication flow tests
-- [ ] Matching algorithm tests
-- [ ] Payment flow tests
-
-### User Acceptance Tests
-- [ ] Complete user journey tests
-- [ ] Restaurant partner flow tests
-- [ ] Edge case handling
+- [ ] **User Acceptance Tests**
+  - [ ] Complete user journey tests
+  - [ ] Edge case handling
+  - [ ] Performance testing
 
 ---
 
@@ -379,12 +293,19 @@ lib/
 - [ ] Successful matches per day
 - [ ] Restaurant visits completed
 - [ ] User retention rate
+- [ ] Average session duration
+
+### User Satisfaction
+- [ ] App store ratings
+- [ ] User feedback scores
+- [ ] Feature usage analytics
+- [ ] Churn rate analysis
 
 ### Business Metrics
-- [ ] Restaurant partner signups
-- [ ] Revenue from subscriptions
-- [ ] Discount redemption rate
-- [ ] Customer satisfaction scores
+- [ ] Premium subscription rate
+- [ ] Referral success rate
+- [ ] User lifetime value
+- [ ] Cost per acquisition
 
 ---
 
@@ -392,16 +313,30 @@ lib/
 
 ### Beta Testing
 - [ ] Internal testing with team
-- [ ] Closed beta with select restaurants
-- [ ] Open beta with limited users
+- [ ] Closed beta with select users
+- [ ] Open beta with limited features
 - [ ] Feedback collection and iteration
 
 ### Marketing Launch
-- [ ] Restaurant partnership program
 - [ ] Social media campaign
 - [ ] Influencer partnerships
 - [ ] PR and media outreach
+- [ ] University campus partnerships
+
+### Growth Strategy
+- [ ] Referral program launch
+- [ ] Corporate partnerships
+- [ ] Event marketing
+- [ ] Content marketing
 
 ---
 
-**Next Steps**: Start with Milestone 1 - Foundation Setup, beginning with Firebase configuration and Google Sign-In implementation.
+## 🎯 Current Priority
+
+**Next Steps**: Move to Milestone 7 (Premium Features & Monetization) - implement premium user features and subscription system.
+
+**Recently Completed**: 
+- ✅ Milestone 4: Advanced user features (QR codes, discount display)
+- ✅ Milestone 5: Post-meal rating system (restaurant & user ratings)
+
+**Architecture Note**: Restaurant management features (staff portal, analytics, etc.) are handled in a separate restaurant app to maintain clear separation of concerns.

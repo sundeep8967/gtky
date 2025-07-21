@@ -460,4 +460,18 @@ class DiningPlanService {
       return false;
     }
   }
+
+  // Complete a dining plan (mark as completed)
+  Future<bool> completePlan(String planId) async {
+    try {
+      await _firestore.collection('dining_plans').doc(planId).update({
+        'status': PlanStatus.completed.toString().split('.').last,
+        'completedAt': DateTime.now().toIso8601String(),
+      });
+      return true;
+    } catch (e) {
+      print('Error completing plan: $e');
+      return false;
+    }
+  }
 }

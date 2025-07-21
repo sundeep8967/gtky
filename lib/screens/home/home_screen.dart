@@ -7,7 +7,7 @@ import '../../models/dining_plan_model.dart';
 import '../../models/restaurant_model.dart';
 import '../restaurants/restaurant_discovery_screen.dart';
 import '../plans/plan_discovery_screen.dart';
-import '../restaurant/restaurant_staff_screen.dart';
+import '../safety/safety_settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -59,15 +59,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const RestaurantStaffScreen(),
+          // This will be a separate restaurant app
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Restaurant features are in a separate app for restaurant staff'),
             ),
           );
         },
-        icon: const Icon(Icons.restaurant),
-        label: const Text('Staff Portal'),
+        icon: const Icon(Icons.info),
+        label: const Text('Restaurant Info'),
         backgroundColor: Colors.orange[600],
       ),
     );
@@ -425,46 +425,148 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: authService.currentUser?.photoURL != null
-                  ? NetworkImage(authService.currentUser!.photoURL!)
-                  : null,
-              child: authService.currentUser?.photoURL == null
-                  ? const Icon(Icons.person, size: 50)
-                  : null,
+            // Profile Header
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundImage: authService.currentUser?.photoURL != null
+                          ? NetworkImage(authService.currentUser!.photoURL!)
+                          : null,
+                      child: authService.currentUser?.photoURL == null
+                          ? const Icon(Icons.person, size: 50)
+                          : null,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      authService.currentUser?.displayName ?? 'User',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      authService.currentUser?.email ?? '',
+                      style: const TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
+            
             const SizedBox(height: 16),
-            Text(
-              authService.currentUser?.displayName ?? 'User',
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            
+            // Safety & Privacy Section
+            Card(
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.security, color: Colors.blue),
+                    title: const Text('Safety & Privacy'),
+                    subtitle: const Text('Manage your safety settings and privacy'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SafetySettingsScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    leading: const Icon(Icons.help, color: Colors.green),
+                    title: const Text('Help & Support'),
+                    subtitle: const Text('Get help and contact support'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Help & Support coming soon'),
+                        ),
+                      );
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    leading: const Icon(Icons.settings, color: Colors.grey),
+                    title: const Text('App Settings'),
+                    subtitle: const Text('Notifications, preferences, and more'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('App Settings coming soon'),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 8),
-            Text(
-              authService.currentUser?.email ?? '',
-              style: const TextStyle(
-                color: Colors.grey,
+            
+            const SizedBox(height: 16),
+            
+            // Account Section
+            Card(
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.edit, color: Colors.orange),
+                    title: const Text('Edit Profile'),
+                    subtitle: const Text('Update your profile information'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Profile editing coming soon'),
+                        ),
+                      );
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    leading: const Icon(Icons.logout, color: Colors.red),
+                    title: const Text('Sign Out'),
+                    subtitle: const Text('Sign out of your account'),
+                    onTap: () async {
+                      final confirmed = await showDialog<bool>(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('Sign Out'),
+                          content: const Text('Are you sure you want to sign out?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, false),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, true),
+                              style: TextButton.styleFrom(foregroundColor: Colors.red),
+                              child: const Text('Sign Out'),
+                            ),
+                          ],
+                        ),
+                      );
+                      
+                      if (confirmed == true) {
+                        await authService.signOut();
+                      }
+                    },
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 32),
-            const Text(
-              'Profile management features',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Coming soon in future milestones',
-              style: TextStyle(color: Colors.grey),
             ),
           ],
         ),

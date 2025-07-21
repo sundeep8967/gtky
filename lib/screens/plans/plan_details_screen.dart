@@ -6,7 +6,11 @@ import '../../models/user_model.dart';
 import '../../services/dining_plan_service.dart';
 import '../../services/auth_service.dart';
 import '../../services/firestore_service.dart';
+import '../../services/rating_service.dart';
+import '../../services/safety_service.dart';
 import 'arrival_verification_screen.dart';
+import '../ratings/post_meal_rating_screen.dart';
+import '../safety/report_user_screen.dart';
 
 class PlanDetailsScreen extends StatefulWidget {
   final DiningPlanModel plan;
@@ -25,15 +29,31 @@ class PlanDetailsScreen extends StatefulWidget {
 class _PlanDetailsScreenState extends State<PlanDetailsScreen> {
   final DiningPlanService _diningPlanService = DiningPlanService();
   final FirestoreService _firestoreService = FirestoreService();
+  final RatingService _ratingService = RatingService();
+  final SafetyService _safetyService = SafetyService();
   
   List<UserModel> _planMembers = [];
   bool _isLoading = true;
   bool _isJoining = false;
+  bool _hasRatedRestaurant = false;
 
   @override
   void initState() {
     super.initState();
     _loadPlanMembers();
+    _checkRatingStatus();
+  }
+
+  Future<void> _checkRatingStatus() async {
+    if (widget.restaurant != null) {
+      final hasRated = await _ratingService.hasUserRatedRestaurant(
+        widget.restaurant!.id,
+        widget.plan.id,
+      );
+      setState(() {
+        _hasRatedRestaurant = hasRated;
+      });
+    }
   }
 
   Future<void> _loadPlanMembers() async {
@@ -308,6 +328,7 @@ class _PlanDetailsScreenState extends State<PlanDetailsScreen> {
                     ),
                     title: Text(member.name),
                     subtitle: Text(member.company),
+                    onTap: () => _showMemberActions(member),
                     trailing: index == 0 
                         ? Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -432,6 +453,66 @@ class _PlanDetailsScreenState extends State<PlanDetailsScreen> {
                     backgroundColor: Colors.blue[600],
                     foregroundColor: Colors.white,
                   ),
+                ),
+              ),
+            ],
+            
+            // Show rating button if plan is completed and user hasn't rated yet
+            if (widget.plan.status == PlanStatus.completed && 
+                widget.restaurant != null && 
+                !_hasRatedRestaurant) ...[
+              const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PostMealRatingScreen(
+                          plan: widget.plan,
+                          restaurant: widget.restaurant!,
+                        ),
+                      ),
+                    );
+                    if (result == true) {
+                      _checkRatingStatus(); // Refresh rating status
+                    }
+                  },
+                  icon: const Icon(Icons.star),
+                  label: const Text('Rate Your Experience'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange[600],
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+            
+            // Show thank you message if already rated
+            if (widget.plan.status == PlanStatus.completed && _hasRatedRestaurant) ...[
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.green[50],
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.green[200]!),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.check_circle, color: Colors.green[700]),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'Thank you for rating your experience!',
+                        style: TextStyle(
+                          color: Colors.green[700],
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -586,6 +667,126 @@ class _PlanDetailsScreenState extends State<PlanDetailsScreen> {
         setState(() {
           _isJoining = false;
         });
+      }
+    }
+  }
+
+  Future<void> _showMemberActions(UserModel member) async {
+    final currentUser = Provider.of<AuthService>(context, listen: false).currentUser;
+    if (currentUser == null || member.id == currentUser.uid) return;
+
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: CircleAvatar(
+                backgroundImage: member.profilePhotoUrl != null
+                    ? NetworkImage(member.profilePhotoUrl!)
+                    : null,
+                child: member.profilePhotoUrl == null
+                    ? Text(member.name.isNotEmpty ? member.name[0].toUpperCase() : '?')
+                    : null,
+              ),
+              title: Text(member.name),
+              subtitle: Text(member.company),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.report, color: Colors.red),
+              title: const Text('Report User'),
+              subtitle: const Text('Report inappropriate behavior'),
+              onTap: () {
+                Navigator.pop(context);
+                _reportUser(member);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.block, color: Colors.orange),
+              title: const Text('Block User'),
+              subtitle: const Text('Block this user from future interactions'),
+              onTap: () {
+                Navigator.pop(context);
+                _blockUser(member);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.cancel),
+              title: const Text('Cancel'),
+              onTap: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _reportUser(UserModel user) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ReportUserScreen(reportedUser: user),
+      ),
+    );
+    
+    if (result == true) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Thank you for your report. We take safety seriously.'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    }
+  }
+
+  Future<void> _blockUser(UserModel user) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Block User'),
+        content: Text(
+          'Are you sure you want to block ${user.name}? You won\'t see their dining plans or be matched with them in the future.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Block'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      try {
+        final currentUser = Provider.of<AuthService>(context, listen: false).currentUser;
+        if (currentUser != null) {
+          await _safetyService.blockUser(
+            blockerId: currentUser.uid,
+            blockedUserId: user.id,
+            reason: 'Blocked from dining plan',
+          );
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${user.name} has been blocked'),
+              backgroundColor: Colors.orange,
+            ),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to block user: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     }
   }

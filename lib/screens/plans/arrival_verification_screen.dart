@@ -202,37 +202,152 @@ class _ArrivalVerificationScreenState extends State<ArrivalVerificationScreen> {
             const SizedBox(height: 12),
             
             if (userCode != null) ...[
-              Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  decoration: BoxDecoration(
-                    color: hasArrived ? Colors.green[100] : Colors.blue[100],
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: hasArrived ? Colors.green[300]! : Colors.blue[300]!,
-                      width: 2,
-                    ),
-                  ),
-                  child: Text(
-                    userCode,
-                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: hasArrived ? Colors.green[700] : Colors.blue[700],
-                      letterSpacing: 8,
-                    ),
+              // QR Code and Code Display Section
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: hasArrived ? Colors.green[50] : Colors.blue[50],
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: hasArrived ? Colors.green[200]! : Colors.blue[200]!,
+                    width: 2,
                   ),
                 ),
-              ),
-              const SizedBox(height: 12),
-              
-              Text(
-                hasArrived 
-                    ? 'You have successfully checked in at the restaurant!'
-                    : 'Show this code to the restaurant staff when you arrive.',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: hasArrived ? Colors.green[700] : Colors.blue[700],
+                child: Column(
+                  children: [
+                    Text(
+                      hasArrived ? 'Verified!' : 'Your Verification Code',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: hasArrived ? Colors.green[700] : Colors.blue[700],
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    
+                    if (!hasArrived) ...[
+                      // QR Code Display
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.blue[300]!),
+                        ),
+                        child: Column(
+                          children: [
+                            // QR Code placeholder (in real implementation, use qr_flutter package)
+                            Container(
+                              width: 120,
+                              height: 120,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: Colors.black, width: 2),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.qr_code,
+                                      size: 60,
+                                      color: Colors.black,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      userCode,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              'Scan QR Code',
+                              style: TextStyle(
+                                color: Colors.blue[700],
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      
+                      const SizedBox(height: 20),
+                      
+                      // Manual code display
+                      Text(
+                        'OR show this code:',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.blue[600],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                    
+                    // Code display
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      decoration: BoxDecoration(
+                        color: hasArrived ? Colors.green[100] : Colors.blue[100],
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: hasArrived ? Colors.green[300]! : Colors.blue[300]!,
+                          width: 2,
+                        ),
+                      ),
+                      child: Text(
+                        userCode,
+                        style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: hasArrived ? Colors.green[700] : Colors.blue[700],
+                          letterSpacing: 8,
+                        ),
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 16),
+                    
+                    Text(
+                      hasArrived 
+                          ? 'You have successfully checked in at the restaurant!'
+                          : 'Show this to restaurant staff for verification',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: hasArrived ? Colors.green[700] : Colors.blue[700],
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    
+                    if (hasArrived) ...[
+                      const SizedBox(height: 12),
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.green[100],
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.savings, color: Colors.green[700], size: 20),
+                            const SizedBox(width: 8),
+                            Text(
+                              'You\'ll save 15% on your bill!',
+                              style: TextStyle(
+                                color: Colors.green[700],
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
-                textAlign: TextAlign.center,
               ),
             ] else ...[
               Text(
