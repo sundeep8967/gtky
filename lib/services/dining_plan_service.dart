@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/dining_plan_model.dart';
-import '../models/restaurant_model.dart';
 import '../models/user_model.dart';
 import 'code_generation_service.dart';
+import 'subscription_service.dart';
 
 class DiningPlanService {
   static final DiningPlanService _instance = DiningPlanService._internal();
@@ -13,6 +13,7 @@ class DiningPlanService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final CodeGenerationService _codeService = CodeGenerationService();
+  final SubscriptionService _subscriptionService = SubscriptionService();
 
   // Create a new dining plan
   Future<String?> createDiningPlan({
@@ -34,6 +35,12 @@ class DiningPlanService {
 
       if (plannedTime.isBefore(minTime) || plannedTime.isAfter(maxTime)) {
         throw Exception('Planned time must be between 30 minutes and 2 hours from now');
+      }
+
+      // Check daily plan limit for free users
+      final canCreate = await _subscriptionService.canCreatePlan(currentUser.uid);
+      if (!canCreate) {
+        throw Exception('Daily plan limit reached. Upgrade to Premium for unlimited plans!');
       }
 
       // Create the dining plan

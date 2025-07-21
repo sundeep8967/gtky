@@ -12,6 +12,8 @@ class UserModel {
   final DateTime lastActive;
   final bool isVerified;
   final double trustScore;
+  final bool isPremium;
+  final double referralCredits;
 
   UserModel({
     required this.id,
@@ -27,6 +29,8 @@ class UserModel {
     required this.lastActive,
     this.isVerified = false,
     this.trustScore = 5.0,
+    this.isPremium = false,
+    this.referralCredits = 0.0,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -44,6 +48,8 @@ class UserModel {
       lastActive: DateTime.parse(json['lastActive'] ?? DateTime.now().toIso8601String()),
       isVerified: json['isVerified'] ?? false,
       trustScore: json['trustScore']?.toDouble() ?? 5.0,
+      isPremium: json['isPremium'] ?? false,
+      referralCredits: json['referralCredits']?.toDouble() ?? 0.0,
     );
   }
 
@@ -62,6 +68,8 @@ class UserModel {
       'lastActive': lastActive.toIso8601String(),
       'isVerified': isVerified,
       'trustScore': trustScore,
+      'isPremium': isPremium,
+      'referralCredits': referralCredits,
     };
   }
 
@@ -79,6 +87,8 @@ class UserModel {
     DateTime? lastActive,
     bool? isVerified,
     double? trustScore,
+    bool? isPremium,
+    double? referralCredits,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -94,6 +104,8 @@ class UserModel {
       lastActive: lastActive ?? this.lastActive,
       isVerified: isVerified ?? this.isVerified,
       trustScore: trustScore ?? this.trustScore,
+      isPremium: isPremium ?? this.isPremium,
+      referralCredits: referralCredits ?? this.referralCredits,
     );
   }
 }

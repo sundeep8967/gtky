@@ -8,6 +8,8 @@ import '../../models/restaurant_model.dart';
 import '../restaurants/restaurant_discovery_screen.dart';
 import '../plans/plan_discovery_screen.dart';
 import '../safety/safety_settings_screen.dart';
+import '../premium/premium_upgrade_screen.dart';
+import '../premium/referral_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -494,6 +496,36 @@ class ProfileScreen extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Help & Support coming soon'),
+                        ),
+                      );
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    leading: const Icon(Icons.star, color: Colors.amber),
+                    title: const Text('GTKY Premium'),
+                    subtitle: const Text('Upgrade for unlimited plans and more'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PremiumUpgradeScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    leading: const Icon(Icons.card_giftcard, color: Colors.purple),
+                    title: const Text('Referrals & Rewards'),
+                    subtitle: const Text('Earn credits by inviting friends'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ReferralScreen(),
                         ),
                       );
                     },

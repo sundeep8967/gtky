@@ -326,7 +326,19 @@ class _PlanDetailsScreenState extends State<PlanDetailsScreen> {
                           ? Text(member.name.isNotEmpty ? member.name[0].toUpperCase() : '?')
                           : null,
                     ),
-                    title: Text(member.name),
+                    title: Row(
+                      children: [
+                        Text(member.name),
+                        if (member.isPremium) ...[
+                          const SizedBox(width: 8),
+                          Icon(
+                            Icons.star,
+                            size: 16,
+                            color: Colors.amber[600],
+                          ),
+                        ],
+                      ],
+                    ),
                     subtitle: Text(member.company),
                     onTap: () => _showMemberActions(member),
                     trailing: index == 0 
