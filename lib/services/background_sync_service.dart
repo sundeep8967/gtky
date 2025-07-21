@@ -11,7 +11,7 @@ class BackgroundSyncService {
 
   Timer? _syncTimer;
   final OfflineService _offlineService = OfflineService();
-  final NotificationService _notificationService = NotificationService();
+  // final NotificationService _notificationService = NotificationService();
 
   // Sync intervals
   static const Duration _quickSyncInterval = Duration(minutes: 5);

@@ -18,7 +18,7 @@ class DiningPlanService {
   final CodeGenerationService _codeService = CodeGenerationService();
   final SubscriptionService _subscriptionService = SubscriptionService();
   final NotificationService _notificationService = NotificationService();
-  final FirestoreService _firestoreService = FirestoreService();
+  // final FirestoreService _firestoreService = FirestoreService();
 
   // Create a new dining plan
   Future<String?> createDiningPlan({

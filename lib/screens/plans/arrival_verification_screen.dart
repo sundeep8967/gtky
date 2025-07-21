@@ -22,7 +22,7 @@ class ArrivalVerificationScreen extends StatefulWidget {
 
 class _ArrivalVerificationScreenState extends State<ArrivalVerificationScreen> {
   final DiningPlanService _diningPlanService = DiningPlanService();
-  final ArrivalStatusService _arrivalStatusService = ArrivalStatusService();
+  // final ArrivalStatusService _arrivalStatusService = ArrivalStatusService();
   bool _isConfirming = false;
 
   @override

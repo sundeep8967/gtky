@@ -35,7 +35,7 @@ class _AnimatedPricingCardState extends State<AnimatedPricingCard>
   late AnimationController _particleController;
   late AnimationController _pulseController;
   late Animation<double> _scaleAnimation;
-  late Animation<double> _glowAnimation;
+  // late Animation<double> _glowAnimation; // TODO: Implement glow animation
 
   @override
   void initState() {
@@ -64,13 +64,13 @@ class _AnimatedPricingCardState extends State<AnimatedPricingCard>
       curve: GTKYAnimations.brandBounce,
     ));
 
-    _glowAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _mainController,
-      curve: GTKYAnimations.brandEaseOut,
-    ));
+    // _glowAnimation = Tween<double>(
+    //   begin: 0.0,
+    //   end: 1.0,
+    // ).animate(CurvedAnimation(
+    //   parent: _mainController,
+    //   curve: GTKYAnimations.brandEaseOut,
+    // )); // TODO: Implement glow animation
 
     _startAnimations();
   }

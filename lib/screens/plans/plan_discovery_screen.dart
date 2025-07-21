@@ -28,7 +28,7 @@ class _PlanDiscoveryScreenState extends State<PlanDiscoveryScreen> {
   // Filter options
   String _selectedTimeFilter = 'All';
   String _selectedCuisineFilter = 'All';
-  double _maxDistance = 10.0; // km
+  // double _maxDistance = 10.0; // km - TODO: Implement distance filtering
   
   final List<String> _timeFilters = [
     'All',
