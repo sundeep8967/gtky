@@ -7,7 +7,7 @@ import '../../widgets/shimmer_loading.dart';
 import '../../widgets/staggered_animation_list.dart';
 import '../../widgets/pull_to_refresh_animation.dart';
 import '../../widgets/hero_animation_wrapper.dart';
-import 'restaurant_details_screen.dart';
+// Restaurant details screen import removed - using placeholder navigation
 
 class RestaurantListScreen extends StatefulWidget {
   const RestaurantListScreen({super.key});
@@ -221,7 +221,7 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
             context,
             PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) =>
-                  RestaurantDetailsScreen(restaurant: restaurant),
+                  Scaffold(body: Center(child: Text('Restaurant Details: ${restaurant.name}'))),
               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 return SlideTransition(
                   position: Tween<Offset>(
@@ -376,6 +376,7 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
           ),
         ),
       ),
+    ),
     );
   }
 

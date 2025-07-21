@@ -245,7 +245,7 @@ class _FeatureDetailDialogState extends State<FeatureDetailDialog>
         ),
         actions: [
           EnhancedButton(
-            style: ButtonStyle.outline,
+            style: GTKYButtonStyle.outline,
             onPressed: () => Navigator.of(context).pop(),
             child: const Text('Close'),
           ),

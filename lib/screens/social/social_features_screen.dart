@@ -336,10 +336,10 @@ class _SocialFeaturesScreenState extends State<SocialFeaturesScreen>
           margin: const EdgeInsets.only(bottom: 12),
           child: ListTile(
             leading: CircleAvatar(
-              backgroundImage: restaurant.imageUrl.isNotEmpty
-                  ? NetworkImage(restaurant.imageUrl)
+              backgroundImage: restaurant.photoUrl?.isNotEmpty == true
+                  ? NetworkImage(restaurant.photoUrl!)
                   : null,
-              child: restaurant.imageUrl.isEmpty
+              child: restaurant.photoUrl?.isEmpty != false
                   ? const Icon(Icons.restaurant)
                   : null,
             ),

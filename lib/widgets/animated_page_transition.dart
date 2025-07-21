@@ -49,13 +49,13 @@ class AnimatedPageTransition extends PageRouteBuilder {
 
 class IOSPageRoute<T> extends PageRoute<T> {
   final Widget child;
-  final Duration transitionDuration;
+  final Duration _transitionDuration;
 
   IOSPageRoute({
     required this.child,
-    this.transitionDuration = const Duration(milliseconds: 300),
+    Duration transitionDuration = const Duration(milliseconds: 300),
     RouteSettings? settings,
-  }) : super(settings: settings);
+  }) : _transitionDuration = transitionDuration, super(settings: settings);
 
   @override
   Color? get barrierColor => null;
@@ -67,7 +67,7 @@ class IOSPageRoute<T> extends PageRoute<T> {
   bool get maintainState => true;
 
   @override
-  Duration get transitionDuration => this.transitionDuration;
+  Duration get transitionDuration => _transitionDuration;
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,

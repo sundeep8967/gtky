@@ -41,7 +41,8 @@ void main() {
       
       // Generate multiple codes and check uniqueness
       for (int i = 0; i < 10; i++) {
-        final code = subscriptionService._generateUniqueCode();
+        // Note: _generateUniqueCode is private method, testing through public interface
+      final referral = await subscriptionService.createReferralCode('test_user_id');
         expect(code.length, 8);
         expect(testCodes.contains(code), false);
         testCodes.add(code);

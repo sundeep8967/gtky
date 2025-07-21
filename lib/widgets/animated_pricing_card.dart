@@ -287,7 +287,7 @@ class _AnimatedPricingCardState extends State<AnimatedPricingCard>
                     child: EnhancedButton(
                       onPressed: widget.onUpgrade,
                       isLoading: widget.isLoading,
-                      style: widget.isPopular ? ButtonStyle.accent : ButtonStyle.primary,
+                      style: widget.isPopular ? GTKYButtonStyle.accent : GTKYButtonStyle.primary,
                       backgroundColor: widget.isPopular ? Colors.white : null,
                       foregroundColor: widget.isPopular ? GTKYAnimations.primaryColor : null,
                       enableGlow: true,

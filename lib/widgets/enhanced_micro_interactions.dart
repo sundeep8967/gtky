@@ -15,7 +15,7 @@ class EnhancedButton extends StatefulWidget {
   final BorderRadius? borderRadius;
   final double? elevation;
   final bool isLoading;
-  final ButtonStyle style;
+  final GTKYButtonStyle style;
   final bool enableHaptic;
   final bool enableGlow;
 
@@ -29,7 +29,7 @@ class EnhancedButton extends StatefulWidget {
     this.borderRadius,
     this.elevation,
     this.isLoading = false,
-    this.style = ButtonStyle.primary,
+    this.style = GTKYButtonStyle.primary,
     this.enableHaptic = true,
     this.enableGlow = true,
   });
@@ -142,20 +142,20 @@ class _EnhancedButtonState extends State<EnhancedButton>
 
   Color get _backgroundColor {
     switch (widget.style) {
-      case ButtonStyle.primary:
+      case GTKYButtonStyle.primary:
         return widget.backgroundColor ?? GTKYAnimations.primaryColor;
-      case ButtonStyle.secondary:
+      case GTKYButtonStyle.secondary:
         return widget.backgroundColor ?? GTKYAnimations.secondaryColor;
-      case ButtonStyle.accent:
+      case GTKYButtonStyle.accent:
         return widget.backgroundColor ?? GTKYAnimations.accentColor;
-      case ButtonStyle.outline:
+      case GTKYButtonStyle.outline:
         return Colors.transparent;
     }
   }
 
   Color get _foregroundColor {
     switch (widget.style) {
-      case ButtonStyle.outline:
+      case GTKYButtonStyle.outline:
         return widget.foregroundColor ?? GTKYAnimations.primaryColor;
       default:
         return widget.foregroundColor ?? Colors.white;
@@ -205,7 +205,7 @@ class _EnhancedButtonState extends State<EnhancedButton>
                   padding: widget.padding ?? const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
                   decoration: BoxDecoration(
                     borderRadius: widget.borderRadius ?? BorderRadius.circular(12),
-                    border: widget.style == ButtonStyle.outline
+                    border: widget.style == GTKYButtonStyle.outline
                         ? Border.all(color: _foregroundColor, width: 2)
                         : null,
                   ),
@@ -255,7 +255,7 @@ class _EnhancedButtonState extends State<EnhancedButton>
   }
 }
 
-enum ButtonStyle { primary, secondary, accent, outline }
+enum GTKYButtonStyle { primary, secondary, accent, outline }
 
 /// Enhanced card with micro-interactions
 class EnhancedCard extends StatefulWidget {
