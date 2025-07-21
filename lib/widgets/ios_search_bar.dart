@@ -113,14 +113,14 @@ class _IOSSearchBarState extends State<IOSSearchBar>
                 hintText: widget.placeholder ?? 'Search',
                 hintStyle: TextStyle(
                   color: isDark
-                      ? Colors.white.withOpacity(0.6)
-                      : Colors.black.withOpacity(0.6),
+                      ? Colors.white.withValues(alpha: 0.6)
+                      : Colors.black.withValues(alpha: 0.6),
                 ),
                 prefixIcon: Icon(
                   Icons.search,
                   color: isDark
-                      ? Colors.white.withOpacity(0.6)
-                      : Colors.black.withOpacity(0.6),
+                      ? Colors.white.withValues(alpha: 0.6)
+                      : Colors.black.withValues(alpha: 0.6),
                   size: 20,
                 ),
                 suffixIcon: _controller.text.isNotEmpty
@@ -134,8 +134,8 @@ class _IOSSearchBarState extends State<IOSSearchBar>
                         child: Icon(
                           Icons.cancel,
                           color: isDark
-                              ? Colors.white.withOpacity(0.6)
-                              : Colors.black.withOpacity(0.6),
+                              ? Colors.white.withValues(alpha: 0.6)
+                              : Colors.black.withValues(alpha: 0.6),
                           size: 20,
                         ),
                       )

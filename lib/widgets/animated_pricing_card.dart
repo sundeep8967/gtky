@@ -233,7 +233,7 @@ class _AnimatedPricingCardState extends State<AnimatedPricingCard>
                           style: TextStyle(
                             fontSize: 16,
                             color: widget.isPopular 
-                                ? Colors.white.withOpacity(0.8)
+                                ? Colors.white.withValues(alpha: 0.8)
                                 : Colors.grey[600],
                           ),
                         ),
@@ -265,7 +265,7 @@ class _AnimatedPricingCardState extends State<AnimatedPricingCard>
                               style: TextStyle(
                                 fontSize: 16,
                                 color: widget.isPopular 
-                                    ? Colors.white.withOpacity(0.9)
+                                    ? Colors.white.withValues(alpha: 0.9)
                                     : Colors.grey[700],
                               ),
                             ),
@@ -313,7 +313,7 @@ class _AnimatedPricingCardState extends State<AnimatedPricingCard>
                     style: TextStyle(
                       fontSize: 12,
                       color: widget.isPopular 
-                          ? Colors.white.withOpacity(0.7)
+                          ? Colors.white.withValues(alpha: 0.7)
                           : Colors.grey[600],
                     ),
                     textAlign: TextAlign.center,

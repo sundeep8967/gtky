@@ -402,10 +402,10 @@ class _PulsingOrbState extends State<PulsingOrb>
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: widget.pulseColor.withOpacity(_opacityAnimation.value),
+                  color: widget.pulseColor.withValues(alpha: _opacityAnimation.value),
                   boxShadow: [
                     BoxShadow(
-                      color: widget.pulseColor.withOpacity(0.3),
+                      color: widget.pulseColor.withValues(alpha: 0.3),
                       blurRadius: 20 * _scaleAnimation.value,
                       spreadRadius: 5 * _scaleAnimation.value,
                     ),

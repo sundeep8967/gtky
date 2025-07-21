@@ -296,7 +296,7 @@ class ParticleTransitionPainter extends CustomPainter {
         final opacity = (1 - particleProgress) * 0.8;
         final size = 2 + random.nextDouble() * 4;
 
-        paint.color = color.withOpacity(opacity);
+        paint.color = color.withValues(alpha: opacity);
         canvas.drawCircle(Offset(x, y), size, paint);
       }
     }
