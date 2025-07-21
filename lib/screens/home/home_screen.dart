@@ -24,8 +24,11 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   int _currentIndex = 0;
+  late PageController _pageController;
+  late AnimationController _fadeController;
+  late Animation<double> _fadeAnimation;
 
   final List<Widget> _screens = [
     const RestaurantDiscoveryScreen(),
@@ -35,48 +38,77 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+    _fadeController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _fadeController, curve: Curves.easeInOut),
+    );
+    _fadeController.forward();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    _fadeController.dispose();
+    super.dispose();
+  }
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOutCubic,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
+      body: FadeTransition(
+        opacity: _fadeAnimation,
+        child: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          children: _screens,
+        ),
+      ),
+      bottomNavigationBar: IOSBottomNavigation(
         currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        type: BottomNavigationBarType.fixed,
+        onTap: _onTabTapped,
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            label: 'Restaurants',
+          IOSBottomNavigationItem(
+            icon: Icons.explore_outlined,
+            activeIcon: Icons.explore,
+            label: 'Discover',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group_add),
+          IOSBottomNavigationItem(
+            icon: Icons.group_add_outlined,
+            activeIcon: Icons.group_add,
             label: 'Join Plans',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant_menu),
+          IOSBottomNavigationItem(
+            icon: Icons.restaurant_menu_outlined,
+            activeIcon: Icons.restaurant_menu,
             label: 'My Plans',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+          IOSBottomNavigationItem(
+            icon: Icons.person_outline,
+            activeIcon: Icons.person,
             label: 'Profile',
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // This will be a separate restaurant app
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Restaurant features are in a separate app for restaurant staff'),
-            ),
-          );
-        },
-        icon: const Icon(Icons.info),
-        label: const Text('Restaurant Info'),
-        backgroundColor: Colors.orange[600],
       ),
     );
   }
