@@ -102,7 +102,7 @@ class _IOSFloatingActionButtonState extends State<IOSFloatingActionButton>
                 borderRadius: BorderRadius.circular(size / 2),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
+                    color: Colors.black.withValues(alpha: 0.2),
                     blurRadius: _elevationAnimation.value,
                     offset: Offset(0, _elevationAnimation.value / 2),
                   ),
