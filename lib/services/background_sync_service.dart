@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:isolate';
-import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'offline_service.dart';
 import 'notification_service.dart';

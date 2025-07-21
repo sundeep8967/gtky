@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_model.dart';
+import '../utils/logger.dart';
 import 'firestore_service.dart';
 
 class AuthService {
@@ -45,7 +46,7 @@ class AuthService {
 
       return userCredential;
     } catch (e) {
-      print('Error signing in with Google: $e');
+      Logger.error('Error signing in with Google', 'Auth', e);
       return null;
     }
   }
@@ -99,7 +100,7 @@ class AuthService {
       final prefs = await SharedPreferences.getInstance();
       await prefs.clear();
     } catch (e) {
-      print('Error signing out: $e');
+      Logger.error('Error signing out', 'Auth', e);
     }
   }
 
@@ -118,7 +119,7 @@ class AuthService {
       
       return true;
     } catch (e) {
-      print('Error deleting account: $e');
+      Logger.error('Error deleting account', 'Auth', e);
       return false;
     }
   }

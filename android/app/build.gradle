@@ -36,14 +36,25 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs.debug
-            minifyEnabled = false
-            shrinkResources = false
-            // Temporarily disable proguard to fix build issues
-            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            
+            // Production optimizations
+            buildConfigField "boolean", "DEBUG_MODE", "false"
+            manifestPlaceholders = [
+                appName: "GTKY",
+                enableCrashlytics: "true"
+            ]
         }
         debug {
             applicationIdSuffix = ".debug"
             debuggable = true
+            buildConfigField "boolean", "DEBUG_MODE", "true"
+            manifestPlaceholders = [
+                appName: "GTKY Debug",
+                enableCrashlytics: "false"
+            ]
         }
     }
 }

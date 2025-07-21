@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/dining_plan_model.dart';
 import '../../models/restaurant_model.dart';
-import '../../models/user_model.dart';
 import '../../services/dining_plan_service.dart';
 import '../../services/restaurant_service.dart';
 import '../../services/auth_service.dart';

@@ -92,7 +92,7 @@ class AppTheme {
       cardTheme: CardTheme(
         color: cardLight,
         elevation: 0,
-        shadowColor: Colors.black.withOpacity(0.1),
+        shadowColor: Colors.black.withValues(alpha: 0.1),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -161,7 +161,7 @@ class AppTheme {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: textTertiary.withOpacity(0.3)),
+          borderSide: BorderSide(color: textTertiary.withValues(alpha: 0.3)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -274,7 +274,7 @@ class AppTheme {
 
       // Divider Theme
       dividerTheme: DividerThemeData(
-        color: textTertiary.withOpacity(0.3),
+        color: textTertiary.withValues(alpha: 0.3),
         thickness: 0.5,
         space: 1,
       ),
@@ -339,7 +339,7 @@ class AppTheme {
       cardTheme: CardTheme(
         color: cardDark,
         elevation: 0,
-        shadowColor: Colors.black.withOpacity(0.3),
+        shadowColor: Colors.black.withValues(alpha: 0.3),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
