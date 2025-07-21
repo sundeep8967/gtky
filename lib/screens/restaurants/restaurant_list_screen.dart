@@ -3,6 +3,10 @@ import 'package:geolocator/geolocator.dart';
 import '../../models/restaurant_model.dart';
 import '../../services/restaurant_service.dart';
 import '../../services/location_service.dart';
+import '../../widgets/shimmer_loading.dart';
+import '../../widgets/staggered_animation_list.dart';
+import '../../widgets/pull_to_refresh_animation.dart';
+import '../../widgets/hero_animation_wrapper.dart';
 import 'restaurant_details_screen.dart';
 
 class RestaurantListScreen extends StatefulWidget {
@@ -117,18 +121,15 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
         ),
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? _buildShimmerLoading()
           : _filteredRestaurants.isEmpty
               ? _buildEmptyState()
-              : RefreshIndicator(
+              : CustomPullToRefresh(
                   onRefresh: _loadRestaurants,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: _filteredRestaurants.length,
-                    itemBuilder: (context, index) {
-                      final restaurant = _filteredRestaurants[index];
+                  child: StaggeredAnimationList(
+                    children: _filteredRestaurants.map((restaurant) {
                       return _buildRestaurantCard(restaurant);
-                    },
+                    }).toList(),
                   ),
                 ),
     );
@@ -176,6 +177,27 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
     );
   }
 
+  Widget _buildShimmerLoading() {
+    return ShimmerLoading(
+      isLoading: true,
+      child: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: 6,
+        itemBuilder: (context, index) {
+          return const Padding(
+            padding: EdgeInsets.only(bottom: 16),
+            child: ShimmerCard(
+              height: 140,
+              hasImage: true,
+              titleLines: 2,
+              contentLines: 3,
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   Widget _buildRestaurantCard(RestaurantModel restaurant) {
     final distance = _currentPosition != null
         ? restaurant.distanceFrom(
@@ -184,7 +206,10 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
           )
         : null;
 
-    return Card(
+    return HeroAnimationWrapper(
+      tag: 'restaurant_${restaurant.id}',
+      builder: (context, child) => child,
+      child: Card(
       margin: const EdgeInsets.only(bottom: 16),
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -194,8 +219,25 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => RestaurantDetailsScreen(restaurant: restaurant),
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  RestaurantDetailsScreen(restaurant: restaurant),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(1.0, 0.0),
+                    end: Offset.zero,
+                  ).animate(CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeInOutCubic,
+                  )),
+                  child: FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  ),
+                );
+              },
+              transitionDuration: const Duration(milliseconds: 300),
             ),
           );
         },
