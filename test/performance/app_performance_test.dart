@@ -234,7 +234,7 @@ void main() {
             home: Scaffold(
               body: Column(
                 children: List.generate(10, (index) {
-                  return StatefulWidget();
+                  return const Placeholder();
                 }),
               ),
             ),

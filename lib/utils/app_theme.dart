@@ -59,13 +59,11 @@ class AppTheme {
       colorScheme: const ColorScheme.light(
         primary: primaryBlue,
         secondary: primaryPurple,
-        surface: surfaceLight,
-        background: backgroundLight,
+        surface: backgroundLight,
         error: primaryRed,
         onPrimary: Colors.white,
         onSecondary: Colors.white,
         onSurface: textPrimary,
-        onBackground: textPrimary,
         onError: Colors.white,
       ),
 
@@ -306,13 +304,11 @@ class AppTheme {
       colorScheme: const ColorScheme.dark(
         primary: primaryBlue,
         secondary: primaryPurple,
-        surface: surfaceDark,
-        background: backgroundDark,
+        surface: backgroundDark,
         error: primaryRed,
         onPrimary: Colors.white,
         onSecondary: Colors.white,
         onSurface: textPrimaryDark,
-        onBackground: textPrimaryDark,
         onError: Colors.white,
       ),
 

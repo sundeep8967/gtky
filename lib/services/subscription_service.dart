@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/subscription_model.dart';
 import '../models/referral_model.dart';
@@ -281,7 +282,31 @@ class SubscriptionService {
 
   String _generateUniqueCode() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    final random = DateTime.now().millisecondsSinceEpoch;
-    return List.generate(8, (index) => chars[random % chars.length]).join();
+    final random = Random();
+    return String.fromCharCodes(Iterable.generate(
+      8, (_) => chars.codeUnitAt(random.nextInt(chars.length))
+    ));
+  }
+
+  // Create referral code for user
+  Future<ReferralModel> createReferralCode(String userId) async {
+    try {
+      final code = _generateUniqueCode();
+      final referral = ReferralModel(
+        id: '',
+        referrerId: userId,
+        referralCode: code,
+        status: ReferralStatus.pending,
+        creditAmount: referralCreditAmount,
+        createdAt: DateTime.now(),
+        expiresAt: DateTime.now().add(const Duration(days: 365)),
+      );
+
+      final docRef = await _referrals.add(referral.toJson());
+      return referral.copyWith(id: docRef.id);
+    } catch (e) {
+      print('Error creating referral code: $e');
+      rethrow;
+    }
   }
 }
